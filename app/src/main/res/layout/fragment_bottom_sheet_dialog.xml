@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/rounded_dialog"
+    android:backgroundTint="@color/second_color"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/Camera"
+        style="@style/bottom_sheet"
+        android:text="@string/camera"/>
+    <TextView
+        android:id="@+id/Photo"
+        style="@style/bottom_sheet"
+        android:text="@string/photo"/>
+    <TextView
+        android:id="@+id/Digital_Ink"
+        style="@style/bottom_sheet"
+        android:text="@string/digital_ink"/>
+    <TextView
+        android:id="@+id/QR_Code"
+        style="@style/bottom_sheet"
+        android:text="@string/qr_code"/>
+
+</LinearLayout>
