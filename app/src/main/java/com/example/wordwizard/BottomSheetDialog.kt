@@ -22,10 +22,26 @@ class BottomSheetDialog : BottomSheetDialogFragment() {
     private val PHOTO_REQUEST_CODE = 100;
     private val PHOTO_PERMISSIONS_REQUEST_CODE = 200;
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        registerPermsissionListener()
+        checkCameraPermission()
+    }
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         Log.i("Bottom Sheet","OnCreate Bottom Sheet")
         setStyle(STYLE_NORMAL, R.style. AppBottomSheetDialogTheme);
+        binding.apply {
+            Camera.setOnClickListener {
+                val intent = Intent(context,RecognizedCard::class.java).setAction("your.custom.action")
+                startActivity(intent)
+            }
+            Photo.setOnClickListener{
+            }
+        }
     }
 
     override fun onCreateView(
@@ -33,35 +49,20 @@ class BottomSheetDialog : BottomSheetDialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         Log.i("Bottom Sheet","OnCreateView Bottom Sheet")
-        return inflater.inflate(R.layout.fragment_bottom_sheet_dialog, container, false)
+        binding = FragmentBottomSheetDialogBinding.inflate(inflater,container,false)
+        return binding.root
     }
 
-    override fun onStart() {
-        super.onStart()
-        binding = FragmentBottomSheetDialogBinding.inflate(layoutInflater)
-        Log.i("есть нажатие213","tcnmsasdas")
-        binding.apply {
-            Log.i("есть нажатие21313","tcnmsasdas")
-            Camera.setOnClickListener {
-                Log.i("есть нажатие","tcnmsasdas")
-                registerPermsissionListener()
-                checkCameraPermission()
-            }
-            Photo.setOnClickListener{
-                Log.i("есть нажатие2121212","tcnmsasdas")
-            }
-        }
-    }
 
 
     private fun checkCameraPermission(){
         when{
             ContextCompat.checkSelfPermission(requireContext(),android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
             -> {
-                startActivityForResult(
+                /*startActivityForResult(
                     Intent(MediaStore.ACTION_IMAGE_CAPTURE),
                     PHOTO_REQUEST_CODE
-                )
+                )*/
             }
 
             shouldShowRequestPermissionRationale(android.Manifest.permission.CAMERA) -> {
