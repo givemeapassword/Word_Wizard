@@ -3,35 +3,43 @@ package com.example.wordwizard
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
-import com.example.wordwizard.databinding.ActivityRecognizedCardBinding
+import androidx.appcompat.app.AppCompatActivity
+import com.example.wordwizard.databinding.ActivityRecognizeBinding
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions
+import java.io.ByteArrayOutputStream
 
 class RecognizeActivity : AppCompatActivity() {
     private val recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
-    private lateinit var binding: ActivityRecognizedCardBinding
+    private lateinit var binding: ActivityRecognizeBinding
     private lateinit var imageBitmap: Bitmap
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityRecognizedCardBinding.inflate(layoutInflater)
+        binding = ActivityRecognizeBinding.inflate(layoutInflater)
+        takeImage()
         setContentView(binding.root)
         binding.apply {
-            captureImageBtn.setOnClickListener {
-                takeImage()
-            }
             SaveBtn.setOnClickListener {
-                processImage()
+                val intent = Intent(this@RecognizeActivity,MainActivity::class.java).setAction("your.custom.action")
+                intent.putExtra("image",bitmapCompress(imageBitmap))
+                intent.putExtra("text",textView.text)
+                startActivity(intent)
+                finish()
             }
         }
     }
 
+    private fun bitmapCompress(imageBitmap: Bitmap): ByteArray {
+        val bStream = ByteArrayOutputStream()
+        imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, bStream)
+        return bStream.toByteArray()
+
+    }
     private fun takeImage() {
         try {
             takeImageLauncher.launch(Intent(MediaStore.ACTION_IMAGE_CAPTURE))
@@ -47,6 +55,7 @@ class RecognizeActivity : AppCompatActivity() {
                 val extras: Bundle? = data?.extras
                 imageBitmap = extras?.get("data") as Bitmap
                 binding.imageView.setImageBitmap(imageBitmap)
+                processImage()
             }
             else{
                 //Обработка ошибки

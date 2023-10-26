@@ -50,16 +50,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
+        android:gravity="end"
         android:orientation="horizontal">
-        <Button
-            android:id="@+id/captureImage_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="25dp"
-            android:text="@string/Recognize"
-            android:fontFamily="@font/dmseriftext_regular"
-            android:textSize="15sp"
-            android:layout_weight="1"/>
 
         <Button
             android:id="@+id/Save_btn"
@@ -68,8 +60,7 @@
             android:layout_marginHorizontal="25dp"
             android:text="@string/save"
             android:fontFamily="@font/dmseriftext_regular"
-            android:textSize="15sp"
-            android:layout_weight="1"/>
+            android:textSize="15sp" />
     </LinearLayout>
 
 </LinearLayout>
