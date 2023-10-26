@@ -16,10 +16,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.WordWizard"
+        android:theme="@style/Theme.Design.Light.NoActionBar"
         tools:targetApi="31">
         <activity
-            android:name=".RecognizedCard"
+            android:name=".RecognizeActivity"
             android:exported="false" />
 
         <meta-data

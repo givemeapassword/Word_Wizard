@@ -3,7 +3,6 @@ package com.example.wordwizard
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -30,13 +29,14 @@ class BottomSheetDialog : BottomSheetDialogFragment() {
     }
 
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Log.i("Bottom Sheet","OnCreate Bottom Sheet")
         setStyle(STYLE_NORMAL, R.style. AppBottomSheetDialogTheme);
         binding.apply {
             Camera.setOnClickListener {
-                val intent = Intent(context,RecognizedCard::class.java).setAction("your.custom.action")
+                val intent = Intent(context,RecognizeActivity::class.java).setAction("your.custom.action")
                 startActivity(intent)
             }
             Photo.setOnClickListener{

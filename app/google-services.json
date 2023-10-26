@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "858786832519",
+    "project_id": "word-wizard-31172",
+    "storage_bucket": "word-wizard-31172.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:858786832519:android:dc09774d3cb1767057d822",
+        "android_client_info": {
+          "package_name": "com.example.wordwizard"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAC6v33P64fKvFZIv8mViG0RQzvB6QkpzI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
