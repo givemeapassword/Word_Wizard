@@ -3,6 +3,7 @@ package com.example.wordwizard
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
 import com.example.wordwizard.databinding.CardItemBinding
 
@@ -10,10 +11,10 @@ class CardAdapter: RecyclerView.Adapter<CardAdapter.CardHolder>() {
     private val cardList = ArrayList<CardData>()
 
     class CardHolder(item: View):RecyclerView.ViewHolder(item) {
-        val binding = CardItemBinding.bind(item)
+        private val binding = CardItemBinding.bind(item)
         fun bind(cardData: CardData){
             binding.apply {
-                imageCard.setImageBitmap(cardData.imageId)
+                imageCard.setImageURI(cardData.imageId.toUri())
                 textCard.text = cardData.title
             }
         }

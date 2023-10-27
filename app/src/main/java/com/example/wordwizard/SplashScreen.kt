@@ -13,12 +13,16 @@ class SplashScreen : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.i("SplashScreen","OnCreate SplashScreen")
+
         window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
         setContentView(R.layout.activity_splash_screen)
 
         Handler().postDelayed({
-            startActivity(Intent(this@SplashScreen,MainActivity::class.java).setAction("your.custom.action"))
+            startActivity(
+                Intent(this@SplashScreen,MainActivity::class.java).
+                setAction("your.custom.action")
+            )
             finish()
-        },2000)
+        },1500)
     }
 }

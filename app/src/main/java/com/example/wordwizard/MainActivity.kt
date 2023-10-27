@@ -1,41 +1,41 @@
 package com.example.wordwizard
 
+
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.wordwizard.databinding.ActivityMainBinding
-import com.example.wordwizard.db.MyDbHelper
 import com.example.wordwizard.db.MyDbManager
+import com.example.wordwizard.db.SaveExternalStorage
 
 class MainActivity : AppCompatActivity() {
 
     val MyDbManager = MyDbManager(this)
     private lateinit var binding: ActivityMainBinding
-    private val adapter = CardAdapter()
-    private lateinit var imageCard: Bitmap
     private lateinit var text: String
-    private lateinit var byteArray: ByteArray
+    private val adapter = CardAdapter()
+    private val taskList: ArrayList<CardData> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.i("Main","OnCreate Main")
 
-        //надувание вьюшки
+        /** надувание вьюшки */
         binding = ActivityMainBinding.inflate(layoutInflater)
 
 
         setContentView(binding.root)
 
-        //запрос разрешения у пользователя
+        /** запрос разрешения у пользователя */
 
 
-        //слушатели драйверлейлаута и боттомшитдиалога
+        /**слушатели драйверлейлаута и боттомшитдиалога */
         binding.apply {
             menu.setOnClickListener {
                 Log.i("Main","Menu Click")
@@ -63,30 +63,15 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        if (intent.hasExtra("image")) {
-            getDataRecognizeActivity()
-            initRecyclerCard()
-            MyDbManager.openDb()
-            MyDbManager.insertToDb(text,byteArray)
-        }
-    }
-    private fun initRecyclerCard(){
+        Log.i("Main","onResume")
         binding.apply {
             rcView.layoutManager = LinearLayoutManager(this@MainActivity)
             rcView.adapter = adapter
+            Log.i("Main","Create RV")
         }
-        val cardData = CardData(imageCard,text)
-        adapter.addCard(cardData)
+        taskList.addAll(MyDbManager.getAllCards())
         adapter.notifyDataSetChanged()
-
     }
-
-    private fun getDataRecognizeActivity() {
-            byteArray = intent.getByteArrayExtra("image")!!
-            text = intent.getStringExtra("text").toString()
-            imageCard = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size ?: 0)
-        }
-
 
     override fun onDestroy() {
         super.onDestroy()

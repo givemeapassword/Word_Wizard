@@ -1,36 +1,44 @@
 package com.example.wordwizard.db
 
-import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
+import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
-import java.sql.Blob
+import com.example.wordwizard.CardData
 
 class MyDbManager(context: Context) {
-    val MyDbHelper = MyDbHelper(context)
-    var db: SQLiteDatabase? = null
+    private val MyDbHelper = MyDbHelper(context)
+    private var db: SQLiteDatabase? = null
 
     fun openDb(){
         db = MyDbHelper.writableDatabase
     }
-    fun insertToDb( text: String, image: ByteArray){
+    fun insertToDb( text: String, image: String){
         val values = ContentValues().apply{
-            put(MydbNameClass.COLUMN_NAME_TEXT,text)
-            put(MydbNameClass.COLUMN_NAME_IMAGE,image)
+            put(MyDbNameClass.COLUMN_NAME_TEXT,text)
+            put(MyDbNameClass.COLUMN_NAME_IMAGE,image)
         }
-        db?.insert(MydbNameClass.TABLE_NAME,null,values)
+        db?.insert(MyDbNameClass.TABLE_NAME,null,values)
     }
-    @SuppressLint("Range")
-    fun readDbData(): ArrayList<String>{
-        val dataList = ArrayList<String>()
-        val cursor = db?.query(MydbNameClass.TABLE_NAME,null,null,null,
-            null,null,null)
-        while (cursor?.moveToNext()!!){
-            val dataText = cursor.getString(cursor.getColumnIndex(MydbNameClass.COLUMN_NAME_TEXT))
-            dataList.add(dataText.toString())
+
+    fun getAllCards(): ArrayList<CardData> {
+        val cards = ArrayList<CardData>()
+        val db = MyDbHelper.readableDatabase
+        val cursor: Cursor = db.rawQuery(MyDbNameClass.SELECT_ALL, null)
+
+        if (cursor.moveToFirst()) {
+            do {
+                val text = cursor.getString(cursor.getColumnIndexOrThrow(MyDbNameClass.COLUMN_NAME_TEXT))
+                val image = cursor.getString(cursor.getColumnIndexOrThrow(MyDbNameClass.COLUMN_NAME_IMAGE))
+                val task = CardData(text, image)
+                cards.add(task)
+            } while (cursor.moveToNext())
         }
+
         cursor.close()
-        return dataList
+        db.close()
+
+        return cards
     }
 
     fun closeDb(){

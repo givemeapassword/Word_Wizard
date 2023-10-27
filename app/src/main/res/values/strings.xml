@@ -1,12 +1,12 @@
 <resources>
     <string name="app_name">Word Wizard</string>
-    <string name="Share_app">Share_app</string>
-    <string name="Send">Send us a feedback</string>
-    <string name="Rate_app">Rate app on Google Play</string>
-    <string name="Licenses">Open Source Licenses</string>
-    <string name="Privacy">Privacy Policy</string>
-    <string name="Terms">Terms of Service</string>
-    <string name="Main_button">Text</string>
+    <string name="share_app">Share_app</string>
+    <string name="send">Send us a feedback</string>
+    <string name="rate_app">Rate app on Google Play</string>
+    <string name="licenses">Open Source Licenses</string>
+    <string name="privacy">Privacy Policy</string>
+    <string name="terms">Terms of Service</string>
+    <string name="main_button">Text</string>
     <string name="describe_menu">menu</string>
     <string name="describe_subscription">subscription</string>
     <string name="nickname">Nickname</string>
@@ -14,7 +14,8 @@
     <string name="camera">Camera</string>
     <string name="photo">Photo</string>
     <string name="save">Save</string>
-    <string name="Recognize">Recognize</string>
+    <string name="recognize">Recognize</string>
     <string name="qr_code">QR-Code</string>
     <string name="digital_ink">Digital Ink</string>
+    <string name="recognize_error">Something go wrong.Try again</string>
 </resources>
