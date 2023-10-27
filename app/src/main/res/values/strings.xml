@@ -18,4 +18,5 @@
     <string name="qr_code">QR-Code</string>
     <string name="digital_ink">Digital Ink</string>
     <string name="recognize_error">Something go wrong.Try again</string>
+    <string name="time">time</string>
 </resources>

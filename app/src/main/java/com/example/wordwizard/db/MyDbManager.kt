@@ -4,7 +4,9 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
+import com.example.wordwizard.CardAdapter
 import com.example.wordwizard.CardData
+import com.example.wordwizard.databinding.ActivityMainBinding
 
 class MyDbManager(context: Context) {
     private val MyDbHelper = MyDbHelper(context)
@@ -30,14 +32,13 @@ class MyDbManager(context: Context) {
             do {
                 val text = cursor.getString(cursor.getColumnIndexOrThrow(MyDbNameClass.COLUMN_NAME_TEXT))
                 val image = cursor.getString(cursor.getColumnIndexOrThrow(MyDbNameClass.COLUMN_NAME_IMAGE))
-                val task = CardData(text, image)
-                cards.add(task)
+                val card = CardData(image, text)
+                cards.add(card)
             } while (cursor.moveToNext())
         }
 
         cursor.close()
         db.close()
-
         return cards
     }
 

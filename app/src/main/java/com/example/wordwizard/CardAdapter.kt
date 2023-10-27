@@ -14,8 +14,8 @@ class CardAdapter: RecyclerView.Adapter<CardAdapter.CardHolder>() {
         private val binding = CardItemBinding.bind(item)
         fun bind(cardData: CardData){
             binding.apply {
-                imageCard.setImageURI(cardData.imageId.toUri())
-                textCard.text = cardData.title
+                    imageCard.setImageURI(cardData.imageId.toUri())
+                    textCard.text = cardData.title
             }
         }
     }
@@ -29,20 +29,13 @@ class CardAdapter: RecyclerView.Adapter<CardAdapter.CardHolder>() {
         return cardList.size
     }
 
-    override fun getItemId(position: Int): Long {
-        return position.toLong()
-    }
-
-    override fun getItemViewType(position: Int): Int {
-        return position
-    }
 
     override fun onBindViewHolder(holder: CardHolder, position: Int) {
         holder.bind(cardList[position])
     }
-    fun addCard(cardData: CardData){
+    fun addCard(cardData: ArrayList<CardData>){
         cardList.clear()
-        cardList.addAll(listOf(cardData))
+        cardList.addAll(cardData)
         notifyDataSetChanged()
     }
 }

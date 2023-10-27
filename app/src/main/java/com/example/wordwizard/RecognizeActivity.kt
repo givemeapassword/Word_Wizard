@@ -14,7 +14,6 @@ import com.example.wordwizard.db.SaveExternalStorage
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions
-import java.io.ByteArrayOutputStream
 
 class RecognizeActivity : AppCompatActivity() {
     private val MyDbManager = MyDbManager(this)
@@ -25,12 +24,10 @@ class RecognizeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.i("RecognizeActivity","onCreate")
-
-        /** Запуск камеры перед созадние View */
-        launchImage()
         binding = ActivityRecognizeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        /** Запуск камеры перед созадние View */
+        launchImage()
         binding.apply {
             SaveBtn.setOnClickListener {
                 MyDbManager.openDb()
@@ -48,7 +45,7 @@ class RecognizeActivity : AppCompatActivity() {
         try {
             takeImageLauncher.launch(Intent(MediaStore.ACTION_IMAGE_CAPTURE))
         } catch (e: Exception) {
-            /** Обработка ошибки */
+            // Обработка ошибки
         }
     }
     private val takeImageLauncher =
