@@ -4,7 +4,6 @@ import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.util.Log
-import androidx.core.net.toUri
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -19,7 +18,7 @@ object SaveExternalStorage {
             File(Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_DOCUMENTS),"Word_Wizard");
         } else {
-            //Запись в Android -11
+            /**Запись в Android -11 */
             File(Environment.getExternalStorageDirectory(),"Word_Wizard");
         }
 

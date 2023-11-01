@@ -4,9 +4,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
-import com.example.wordwizard.CardAdapter
-import com.example.wordwizard.CardData
-import com.example.wordwizard.databinding.ActivityMainBinding
+import com.example.wordwizard.card.CardData
 
 class MyDbManager(context: Context) {
     private val MyDbHelper = MyDbHelper(context)

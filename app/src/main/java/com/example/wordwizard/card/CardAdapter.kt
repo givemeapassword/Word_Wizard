@@ -1,21 +1,30 @@
-package com.example.wordwizard
+package com.example.wordwizard.card
 
+import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ExpandableListView.OnChildClickListener
 import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
+import com.example.wordwizard.R
 import com.example.wordwizard.databinding.CardItemBinding
+import javax.inject.Inject
 
-class CardAdapter: RecyclerView.Adapter<CardAdapter.CardHolder>() {
+class CardAdapter(val listener: Listener): RecyclerView.Adapter<CardAdapter.CardHolder>() {
+
     private val cardList = ArrayList<CardData>()
 
     class CardHolder(item: View):RecyclerView.ViewHolder(item) {
         private val binding = CardItemBinding.bind(item)
-        fun bind(cardData: CardData){
+        fun bind(cardData: CardData, listener: Listener){
             binding.apply {
                     imageCard.setImageURI(cardData.imageId.toUri())
                     textCard.text = cardData.title
+                    cardId.setOnClickListener{
+                        listener.onClick(cardData)
+                    }
             }
         }
     }
@@ -29,13 +38,17 @@ class CardAdapter: RecyclerView.Adapter<CardAdapter.CardHolder>() {
         return cardList.size
     }
 
-
     override fun onBindViewHolder(holder: CardHolder, position: Int) {
-        holder.bind(cardList[position])
+        holder.bind(cardList[position],listener)
     }
     fun addCard(cardData: ArrayList<CardData>){
         cardList.clear()
         cardList.addAll(cardData)
         notifyDataSetChanged()
     }
+
+    interface Listener{
+        fun onClick(cardData: CardData)
+    }
+
 }

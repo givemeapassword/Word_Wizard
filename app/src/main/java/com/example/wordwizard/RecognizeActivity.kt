@@ -8,6 +8,8 @@ import android.provider.MediaStore
 import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.net.toUri
+import com.example.wordwizard.card.CardData
 import com.example.wordwizard.databinding.ActivityRecognizeBinding
 import com.example.wordwizard.db.MyDbManager
 import com.example.wordwizard.db.SaveExternalStorage
@@ -26,8 +28,18 @@ class RecognizeActivity : AppCompatActivity() {
         Log.i("RecognizeActivity","onCreate")
         binding = ActivityRecognizeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        /** Запуск камеры перед созадние View */
-        launchImage()
+        if ( intent.extras != null) {
+            val cardSaveDataImage = intent.getStringExtra("card_image")
+            val cardSaveData = intent.getStringExtra("card_text")
+            binding.apply {
+                imageView.setImageURI(cardSaveDataImage?.toUri())
+                textView.text = cardSaveData
+            }
+        }
+        else {
+            /** Запуск камеры перед созадние View */
+            launchImage()
+        }
         binding.apply {
             SaveBtn.setOnClickListener {
                 MyDbManager.openDb()

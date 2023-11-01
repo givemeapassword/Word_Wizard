@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="TextHeader">
+        <item name="android:fontFamily">@font/serif_display_regular</item>
+        <item name="android:textColor">@color/text_color</item>
+        <item name="android:textSize">22sp</item>
+    </style>
+    <style name="Text.Button" parent="TextAppearance.MaterialComponents.Button">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/text_color</item>
+        <item name="fontFamily">@font/serif</item>
+        <item name="textAllCaps">false</item>
+    </style>
+
+    <style name="BottomTextElement">
+        <item name="android:textSize">24sp</item>
+        <item name="android:fontFamily">@font/serif_text_regular</item>
+        <item name="android:textColor">@color/text_color</item>
+    </style>
+
+    <style name="CardText">
+        <item name="android:textSize">20sp</item>
+        <item name="android:maxLines">1</item>
+        android:maxLines="1"
+    </style>
+
+    <style name="DrawerHeader">
+        <item name="android:fontFamily">@font/serif_text_regular</item>
+        <item name="android:textColor">@color/text_color</item>
+    </style>
+</resources>

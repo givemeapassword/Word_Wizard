@@ -1,16 +1,25 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.WordWizard" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Base.V24.Theme.WordWizard" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/second_color</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
         <item name="colorOnPrimary">@color/text_color</item>
+        <item name="colorAccent">@color/second_color</item>
+        <item name="android:colorControlHighlight">@color/second_color</item>
+        <item name="android:colorControlNormal">@color/second_color</item>
+        <item name="android:windowBackground">@color/background_color</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/text_color</item>
         <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">@color/black</item>
+        <item name="android:textColor">@color/text_color</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">@color/second_color</item>
         <!-- Customize your theme here. -->
     </style>
+    <style name="Base.Theme.WordWizard" parent="Base.V24.Theme.WordWizard"/>
+
+
+    <style name="Theme.WordWizard" parent="Base.Theme.WordWizard"/>
 </resources>
