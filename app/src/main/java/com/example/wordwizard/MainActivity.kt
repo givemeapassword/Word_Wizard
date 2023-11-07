@@ -4,11 +4,11 @@ package com.example.wordwizard
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.MotionEvent
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.wordwizard.card.CardAdapter
 import com.example.wordwizard.card.CardData
 import com.example.wordwizard.databinding.ActivityMainBinding
@@ -49,27 +49,41 @@ class MainActivity : AppCompatActivity(),CardAdapter.Listener {
                 BottomSheetDialog().show(supportFragmentManager,"BottomSheetDialog")
             }
         }
+
+        binding.apply {
+            Log.i("Main","Create RV")
+            rcView.layoutManager = LinearLayoutManager(this@MainActivity)
+            val swapHelper = getSwapMng()
+            swapHelper.attachToRecyclerView(rcView)
+            rcView.adapter = adapter
+            taskList.addAll(MyDbManager.getAllCards())
+            adapter.addCard(taskList)
+        }
     }
 
     override fun onClick(cardData: CardData) {
-
         startActivity(Intent(this@MainActivity,RecognizeActivity::class.java)
             .setAction("your.custom.action")
             .putExtra("card_image",cardData.imageId)
             .putExtra("card_text",cardData.title))
     }
 
-    override fun onResume() {
-        super.onResume()
-        Log.i("Main","onResume")
+    /** swipe element **/
+    private fun getSwapMng(): ItemTouchHelper{
+        return ItemTouchHelper(object:ItemTouchHelper
+            .SimpleCallback(0,ItemTouchHelper.RIGHT){
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return false
+            }
 
-        binding.apply {
-            Log.i("Main","Create RV")
-            rcView.layoutManager = LinearLayoutManager(this@MainActivity)
-            taskList.addAll(MyDbManager.getAllCards())
-            rcView.adapter = adapter
-            adapter.addCard(taskList)
-        }
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                adapter.removeCard(viewHolder.adapterPosition,MyDbManager)
+            }
+        })
     }
 
     override fun onDestroy() {

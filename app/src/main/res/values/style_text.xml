@@ -21,7 +21,6 @@
     <style name="CardText">
         <item name="android:textSize">20sp</item>
         <item name="android:maxLines">1</item>
-        android:maxLines="1"
     </style>
 
     <style name="DrawerHeader">

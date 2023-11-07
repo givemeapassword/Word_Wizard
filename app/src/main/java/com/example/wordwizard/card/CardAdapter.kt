@@ -1,18 +1,16 @@
 package com.example.wordwizard.card
 
-import android.graphics.Color
-import android.util.Log
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ExpandableListView.OnChildClickListener
 import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
 import com.example.wordwizard.R
 import com.example.wordwizard.databinding.CardItemBinding
-import javax.inject.Inject
+import com.example.wordwizard.db.MyDbManager
 
-class CardAdapter(val listener: Listener): RecyclerView.Adapter<CardAdapter.CardHolder>() {
+class CardAdapter(private val listener: Listener): RecyclerView.Adapter<CardAdapter.CardHolder>() {
 
     private val cardList = ArrayList<CardData>()
 
@@ -45,6 +43,13 @@ class CardAdapter(val listener: Listener): RecyclerView.Adapter<CardAdapter.Card
         cardList.clear()
         cardList.addAll(cardData)
         notifyDataSetChanged()
+    }
+
+    fun removeCard(position: Int,dbManager: MyDbManager){
+        dbManager.deleteFromDb(cardList[position].id.toString())
+        cardList.removeAt(position)
+        notifyItemRangeChanged(0,cardList.size)
+        notifyItemRemoved(position)
     }
 
     interface Listener{

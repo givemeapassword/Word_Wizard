@@ -9,11 +9,12 @@ import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
-import com.example.wordwizard.card.CardData
 import com.example.wordwizard.databinding.ActivityRecognizeBinding
 import com.example.wordwizard.db.MyDbManager
 import com.example.wordwizard.db.SaveExternalStorage
+import com.google.android.gms.tasks.Task
 import com.google.mlkit.vision.common.InputImage
+import com.google.mlkit.vision.text.Text
 import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions
 
@@ -28,6 +29,8 @@ class RecognizeActivity : AppCompatActivity() {
         Log.i("RecognizeActivity","onCreate")
         binding = ActivityRecognizeBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        /** принятие данных карточки и их прорисовка**/
         if ( intent.extras != null) {
             val cardSaveDataImage = intent.getStringExtra("card_image")
             val cardSaveData = intent.getStringExtra("card_text")
@@ -57,7 +60,7 @@ class RecognizeActivity : AppCompatActivity() {
         try {
             takeImageLauncher.launch(Intent(MediaStore.ACTION_IMAGE_CAPTURE))
         } catch (e: Exception) {
-            // Обработка ошибки
+            /** Error Camera don't start **/
         }
     }
     private val takeImageLauncher =
@@ -66,25 +69,20 @@ class RecognizeActivity : AppCompatActivity() {
                 val data: Intent? = result.data
                 val extras: Bundle? = data?.extras
                 imageBitmap = extras?.get("data") as Bitmap
+                processImage( InputImage.fromBitmap(imageBitmap, 0))
                 binding.imageView.setImageBitmap(imageBitmap)
-                processImage()
             }
             else{
-                /** Обработка ошибки */
+                onBackPressedDispatcher.onBackPressed()
             }
         }
-    private fun processImage(){
-        val image = imageBitmap.let {
-            InputImage.fromBitmap(it, 0)
-        }
-        image.let {
-            recognizer.process(it)
-                .addOnSuccessListener { visionText ->
-                    binding.textView.text = visionText.text
-                }
-                .addOnFailureListener {
-                    binding.textView.text = R.string.recognize_error.toString()
-                }
-        }
+    private fun processImage(image: InputImage): Task<Text>{
+        return recognizer.process(image)
+            .addOnSuccessListener { visionText ->
+                binding.textView.text = visionText.text
+            }
+            .addOnFailureListener {
+                binding.textView.text = R.string.recognize_error.toString()
+            }
     }
 }

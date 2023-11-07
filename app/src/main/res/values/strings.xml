@@ -19,11 +19,12 @@
     <string name="digital_ink">Digital Ink</string>
     <string name="recognize_error">Something go wrong.Try again</string>
     <string name="time">time</string>
-    <string name="set_description_recognize">Изображение результата</string>
+    <string name="text_start_recognize">There should be text</string>
+
+    <string name="set_description_recognize">TODO</string>
     <string name="image_description_drawer">TODO</string>
     <string name="google_account_image_description">TODO</string>
     <string name="image_card_description">TODO</string>
-    <string name="text_start_recognize">there should be text</string>
     <string name="download_screen_description">TODO</string>
     <string name="splash_screen_image_description">TODO</string>
     <string name="card_image_description">TODO</string>
