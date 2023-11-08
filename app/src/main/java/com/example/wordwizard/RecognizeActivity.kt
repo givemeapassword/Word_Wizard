@@ -6,6 +6,7 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
+import androidx.activity.OnBackPressedDispatcher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
@@ -52,6 +53,9 @@ class RecognizeActivity : AppCompatActivity() {
                 val savedImagePath = SaveExternalStorage.saveImageToExternalStorage(imageBitmap)
                 MyDbManager.insertToDb(textView.text.toString(),savedImagePath.toString())
                 startActivity(intent)
+                finish()
+            }
+            toolbar.setNavigationOnClickListener(){
                 finish()
             }
         }

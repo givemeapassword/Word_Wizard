@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity(),CardAdapter.Listener {
             }
             navView.setNavigationItemSelectedListener {
                 when (it.itemId) {
-                    R.id.Licenses -> {}
+                    R.id.Licenses -> { }
                     R.id.Privacy -> {}
                     R.id.Share -> {}
                     R.id.Send -> {}

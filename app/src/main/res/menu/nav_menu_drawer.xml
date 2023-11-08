@@ -6,8 +6,6 @@
 
     <group
         android:checkableBehavior="single">
-
-
         <item
             android:id="@+id/Share"
             android:title="@string/share_app"/>

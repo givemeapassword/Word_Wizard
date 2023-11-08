@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:id="@+id/drawer_layout"
     android:theme="@style/Theme.WordWizard"
-    tools:openDrawer=""
+    tools:openDrawer="start"
     tools:context=".MainActivity">
 
     <LinearLayout
