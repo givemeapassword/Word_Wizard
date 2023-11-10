@@ -1,29 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:showIn = "navigation_view">
+    tools:showIn="navigation_view">
 
     <group
         android:checkableBehavior="single">
         <item
             android:id="@+id/Share"
-            android:title="@string/share_app"/>
+            android:title="@string/share_app" />
         <item
             android:id="@+id/Send"
-            android:title="@string/send"/>
+            android:title="@string/send" />
         <item
             android:id="@+id/Rate_app"
-            android:title="@string/rate_app"/>
+            android:title="@string/rate_app" />
         <item
             android:id="@+id/Licenses"
-            android:title="@string/licenses"/>
+            android:title="@string/licenses" />
         <item
             android:id="@+id/Privacy"
-            android:title="@string/privacy"/>
+            android:title="@string/privacy" />
         <item
             android:id="@+id/Terms"
-            android:title="@string/terms"/>
+            android:title="@string/terms" />
     </group>
 
 </menu>

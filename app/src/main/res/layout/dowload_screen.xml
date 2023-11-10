@@ -13,14 +13,14 @@
         android:src="@drawable/scan_download"
         android:contentDescription="@string/download_screen_description" />
 
-    <ProgressBar
+    <com.google.android.material.progressindicator.LinearProgressIndicator
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_below="@+id/imageView3"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="40dp"
-        android:layout_marginEnd="150dp"
-        android:layout_marginBottom="-131dp"
+        android:layout_marginEnd="155dp"
+        android:layout_marginBottom="131dp"
         android:indeterminateTint="#222780"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

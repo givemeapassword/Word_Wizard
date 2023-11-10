@@ -4,6 +4,7 @@ package com.example.wordwizard
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -32,14 +33,17 @@ class MainActivity : AppCompatActivity(),CardAdapter.Listener {
                 Log.i("Main","Menu Click")
                 drawerLayout.openDrawer(GravityCompat.START)
             }
+            RV.setOnClickListener{
+
+            }
             navView.setNavigationItemSelectedListener {
                 when (it.itemId) {
-                    R.id.Licenses -> { }
-                    R.id.Privacy -> {}
-                    R.id.Share -> {}
-                    R.id.Send -> {}
-                    R.id.Rate_app -> {}
-                    R.id.Terms -> {}
+                    R.id.Licenses -> { Toast.makeText(this@MainActivity,"В наработке",Toast.LENGTH_SHORT).show() }
+                    R.id.Privacy -> {Toast.makeText(this@MainActivity,"В наработке",Toast.LENGTH_SHORT).show()}
+                    R.id.Share -> {Toast.makeText(this@MainActivity,"В наработке",Toast.LENGTH_SHORT).show()}
+                    R.id.Send -> {Toast.makeText(this@MainActivity,"В наработке",Toast.LENGTH_SHORT).show()}
+                    R.id.Rate_app -> {Toast.makeText(this@MainActivity,"В наработке",Toast.LENGTH_SHORT).show()}
+                    R.id.Terms -> {Toast.makeText(this@MainActivity,"В наработке",Toast.LENGTH_SHORT).show()}
                     else -> {}
                 }
                 true

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:theme="@style/Theme.WordWizard"
+    android:background="@color/header_back"
     android:orientation="vertical">
 
     <LinearLayout
@@ -15,22 +15,23 @@
         <ImageView
             android:layout_width="150dp"
             android:layout_height="match_parent"
-            android:src="@drawable/logo"
+            android:src="@drawable/logo_notback"
             android:contentDescription="@string/image_description_drawer" />
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:textAppearance="@style/Text_Shadow"
             android:text="@string/app_name"
             android:textSize="18sp"
             android:gravity="center"
-            style="@style/DrawerHeader"/>
+            android:fontFamily="@font/serif_display_italic"/>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="90dp"
         android:padding="15dp">
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:cardCornerRadius="250dp">
@@ -40,25 +41,25 @@
             android:contentDescription="@string/google_account_image_description"
             android:scaleType="fitXY"
             android:src="@drawable/pin" />
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:gravity="center_vertical"
-            android:layout_marginStart="15dp">
-            <TextView
+            android:layout_marginStart="25dp">
+            <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/nickname"
-                android:textSize="20sp"
-                style="@style/DrawerHeader"/>
-            <TextView
+                android:textSize="18sp"
+                style="@style/DrawerHeader_text"/>
+            <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/email"
-                android:textSize="15sp"
-                style="@style/DrawerHeader"/>
+                android:textSize="14sp"
+                style="@style/DrawerHeader_text_email"/>
         </LinearLayout>
 
     </LinearLayout>

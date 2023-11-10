@@ -16,10 +16,11 @@
     <string name="save">Save</string>
     <string name="recognize">Recognize</string>
     <string name="qr_code">QR-Code</string>
+    <string name="recognized_text">Распознанный текст:</string>
     <string name="digital_ink">Digital Ink</string>
     <string name="recognize_error">Something go wrong.Try again</string>
     <string name="time">time</string>
-    <string name="text_start_recognize">There should be text</string>
+    <string name="text_start_recognize">Какой-то текст</string>
 
     <string name="set_description_recognize">TODO</string>
     <string name="image_description_drawer">TODO</string>

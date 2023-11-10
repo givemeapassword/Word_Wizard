@@ -27,7 +27,7 @@
             android:exported="false" />
 
         <meta-data
-            android:name="com.google.mlkit.vision.DEPENDENCIES"
+            android:name="com.google.ml-kit.vision.DEPENDENCIES"
             android:value="ocr" />
 
         <activity

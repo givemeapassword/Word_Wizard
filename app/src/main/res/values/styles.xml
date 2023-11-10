@@ -8,11 +8,11 @@
         <item name="android:gravity">center</item>
         <item name="android:background">?attr/selectableItemBackground</item>
         <item name="android:clickable">true</item>
+        <item name="android:drawableLeft">@drawable/dashed_underline</item>
         <item name="android:focusable">true</item>
     </style>
 
-    <style name="AppBottomSheetDialogTheme"
-        parent="Theme.Design.Light.BottomSheetDialog">
+    <style name="AppBottomSheetDialogTheme" parent="Theme.Material3.Light.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/AppModalStyle</item>
     </style>
     <style name="AppModalStyle" parent="Widget.Design.BottomSheet.Modal">
@@ -20,18 +20,18 @@
     </style>
     <!---->
 
-    <style name="MyCardViewStyle" parent="CardView">
-        <item name="cardBackgroundColor">@color/second_color</item>
+    <style name="MyCardViewStyle" parent="Widget.Material3.CardView.Filled">
+        <item name="cardBackgroundColor">@color/card</item>
         <item name="android:foreground">?android:selectableItemBackground</item>
-        <item name="cardElevation">2dp</item>
-        <item name="cardCornerRadius">15dp</item>
         <item name="android:clickable">true</item>
         <item name="android:layout_margin">3dp</item>
     </style>
 
-    <style name="Base.Button" parent="Text.Button">
-        <item name="backgroundTint">@color/second_color</item>
+    <style name="WordWizard">
+        <item name="android:windowBackground">@color/recognize_back</item>
     </style>
+
+
 
 
 </resources>

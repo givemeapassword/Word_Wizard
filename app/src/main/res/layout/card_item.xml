@@ -1,76 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingHorizontal="10dp"
-    android:layout_marginBottom="10dp"
+    android:paddingBottom="5dp"
     android:theme="@style/Theme.WordWizard">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/card_id"
+        style="@style/MyCardViewStyle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/MyCardViewStyle">
-
-        <LinearLayout
+        android:layout_height="80dp"
+        android:outlineProvider="background">
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="80dp"
+            android:layout_marginBottom="10dp">
+
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/image_card_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                app:cardCornerRadius="40dp">
-                <ImageView
+                android:layout_margin="16dp"
+                app:cardCornerRadius="100dp"
+                app:cardElevation="20dp"
+                app:strokeWidth="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.361">
+                <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/image_card"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    tools:srcCompat="@tools:sample/avatars"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:scaleType="fitXY"
+                    tools:srcCompat="@tools:sample/avatars"
                     android:contentDescription="@string/image_card_description" />
             </com.google.android.material.card.MaterialCardView>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:gravity="center_vertical">
-                <TextView
-                    android:id="@+id/text_card"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="25dp"
-                    android:text="@string/save"
-                    style="@style/CardText"/>
-                <TextView
-                    android:id="@+id/time_card"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:text="@string/time"
-                    style="@style/CardText"/>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end|bottom"
-                    android:layout_marginEnd="10dp">
-                    <ImageView
-                        android:id="@+id/card_copy"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_marginEnd="10dp"
-                        android:src="@drawable/copy"
-                        android:contentDescription="@string/card_image_description" />
-                    <ImageView
-                        android:id="@+id/card_share"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:src="@drawable/share"
-                        android:contentDescription="@string/card_image2_description" />
-                </LinearLayout>
-            </LinearLayout>
-        </LinearLayout>
+
+            <TextView
+                android:id="@+id/text_card"
+                style="@style/CardText_Main"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="19dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginBottom="5dp"
+                app:layout_constraintStart_toEndOf="@+id/image_card_view"
+                app:layout_constraintBottom_toTopOf="@id/time_card"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <TextView
+                android:id="@+id/time_card"
+                style="@style/CardText_Second"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="19dp"
+                android:layout_marginBottom="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/image_card_view"
+                app:layout_constraintTop_toBottomOf="@+id/text_card"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/card_copy"
+                android:focusable="true"
+                android:clickable="true"
+                android:background="?android:selectableItemBackground"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="49dp"
+                android:layout_marginBottom="9dp"
+                android:layout_marginEnd="5dp"
+                android:src="@drawable/copy"
+                app:tint="@color/card_copy"
+                android:outlineProvider="bounds"
+                android:elevation="9dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/card_share"
+                app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="@string/card_image_description" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/card_share"
+                android:focusable="true"
+                android:clickable="true"
+                android:background="?android:selectableItemBackground"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="49dp"
+                android:layout_marginEnd="9dp"
+                android:layout_marginBottom="9dp"
+                android:src="@drawable/share"
+                android:outlineProvider="bounds"
+                android:elevation="9dp"
+                app:tint="@color/card_share"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="@string/card_image2_description" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
     </com.google.android.material.card.MaterialCardView>
 
 </LinearLayout>

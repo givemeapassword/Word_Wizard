@@ -48,12 +48,11 @@ class RecognizeActivity : AppCompatActivity() {
             SaveBtn.setOnClickListener {
                 MyDbManager.openDb()
                 Log.i("RecognizeActivity","SaveButton")
-                val intent = Intent(this@RecognizeActivity,
-                    MainActivity::class.java).setAction("your.custom.action")
                 val savedImagePath = SaveExternalStorage.saveImageToExternalStorage(imageBitmap)
                 MyDbManager.insertToDb(textView.text.toString(),savedImagePath.toString())
-                startActivity(intent)
-                finish()
+                MyDbManager.closeDb()
+                startActivity(Intent(this@RecognizeActivity,
+                    MainActivity::class.java).setAction("your.custom.action"))
             }
             toolbar.setNavigationOnClickListener(){
                 finish()
@@ -83,7 +82,12 @@ class RecognizeActivity : AppCompatActivity() {
     private fun processImage(image: InputImage): Task<Text>{
         return recognizer.process(image)
             .addOnSuccessListener { visionText ->
-                binding.textView.text = visionText.text
+                if (visionText.text.trim().isEmpty()){
+                    binding.textView.text = "*Empty Text*"
+                }
+                else{
+                    binding.textView.text = visionText.text
+                }
             }
             .addOnFailureListener {
                 binding.textView.text = R.string.recognize_error.toString()
