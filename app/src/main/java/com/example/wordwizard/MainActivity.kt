@@ -1,12 +1,15 @@
 package com.example.wordwizard
 
 
+import android.content.ClipboardManager
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -14,6 +17,7 @@ import com.example.wordwizard.card.CardAdapter
 import com.example.wordwizard.card.CardData
 import com.example.wordwizard.databinding.ActivityMainBinding
 import com.example.wordwizard.db.MyDbManager
+import com.google.android.gms.dynamic.SupportFragmentWrapper
 
 class MainActivity : AppCompatActivity(),CardAdapter.Listener {
 
@@ -38,12 +42,12 @@ class MainActivity : AppCompatActivity(),CardAdapter.Listener {
             }
             navView.setNavigationItemSelectedListener {
                 when (it.itemId) {
-                    R.id.Licenses -> { Toast.makeText(this@MainActivity,"В наработке",Toast.LENGTH_SHORT).show() }
-                    R.id.Privacy -> {Toast.makeText(this@MainActivity,"В наработке",Toast.LENGTH_SHORT).show()}
-                    R.id.Share -> {Toast.makeText(this@MainActivity,"В наработке",Toast.LENGTH_SHORT).show()}
-                    R.id.Send -> {Toast.makeText(this@MainActivity,"В наработке",Toast.LENGTH_SHORT).show()}
-                    R.id.Rate_app -> {Toast.makeText(this@MainActivity,"В наработке",Toast.LENGTH_SHORT).show()}
-                    R.id.Terms -> {Toast.makeText(this@MainActivity,"В наработке",Toast.LENGTH_SHORT).show()}
+                    R.id.Licenses -> { plug() }
+                    R.id.Privacy -> {plug()}
+                    R.id.Share -> {plug()}
+                    R.id.Send -> {plug()}
+                    R.id.Rate_app -> {plug()}
+                    R.id.Terms -> {plug()}
                     else -> {}
                 }
                 true
@@ -93,6 +97,10 @@ class MainActivity : AppCompatActivity(),CardAdapter.Listener {
     override fun onDestroy() {
         super.onDestroy()
         MyDbManager.closeDb()
+    }
+
+    private fun plug(){
+
     }
 
 

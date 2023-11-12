@@ -1,28 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
 
-
-    <color name="second_color">#7B919C</color>
-    <color name="text_color">#191D23</color>
-    <color name="background_color">#DEDCDC</color>
     <color name="plate_color">#EFDDB2</color>
-    <color name="text_recognize">#BAB5B5</color>
-    <color name="some1">#c5bac4</color>
-    <color name="some2">#989daa</color>
-
-
     <color name="card">#607D8B</color>
     <color name="card_copy">#CFD8DC</color>
     <color name="card_share">#154A5C</color>
     <color name="text">#191D23</color>
     <color name="main_back_button">#463E2B</color>
+    <color name="header_back_hover">#cd9c23</color>
     <color name="regime_button">#9E9E9E</color>
     <color name="header_back">#E1AB26</color>
     <color name="bottom_sheet">#DEDCDC</color>
