@@ -38,16 +38,16 @@ class MainActivity : AppCompatActivity(),CardAdapter.Listener {
                 drawerLayout.openDrawer(GravityCompat.START)
             }
             RV.setOnClickListener{
-
+                Toast.makeText(this@MainActivity,"В разработке", Toast.LENGTH_SHORT).show()
             }
             navView.setNavigationItemSelectedListener {
                 when (it.itemId) {
-                    R.id.Licenses -> { plug() }
-                    R.id.Privacy -> {plug()}
-                    R.id.Share -> {plug()}
-                    R.id.Send -> {plug()}
-                    R.id.Rate_app -> {plug()}
-                    R.id.Terms -> {plug()}
+                    R.id.Licenses -> { Toast.makeText(this@MainActivity,"В разработке", Toast.LENGTH_SHORT).show() }
+                    R.id.Privacy -> {Toast.makeText(this@MainActivity,"В разработке",Toast.LENGTH_SHORT).show()}
+                    R.id.Share -> {Toast.makeText(this@MainActivity,"В разработке",Toast.LENGTH_SHORT).show()}
+                    R.id.Send -> {Toast.makeText(this@MainActivity,"В разработке",Toast.LENGTH_SHORT).show()}
+                    R.id.Rate_app -> {Toast.makeText(this@MainActivity,"В разработке",Toast.LENGTH_SHORT).show()}
+                    R.id.Terms -> {Toast.makeText(this@MainActivity,"В разработке",Toast.LENGTH_SHORT).show()}
                     else -> {}
                 }
                 true
@@ -99,9 +99,6 @@ class MainActivity : AppCompatActivity(),CardAdapter.Listener {
         MyDbManager.closeDb()
     }
 
-    private fun plug(){
-
-    }
 
 
 }

@@ -49,4 +49,5 @@ dependencies {
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
     implementation(libs.play.services.mlkit.text.recognition)
+    implementation (libs.itext7.core)
 }

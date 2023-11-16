@@ -14,13 +14,9 @@ object SaveExternalStorage {
     fun saveImageToExternalStorage(bitmap: Bitmap): Uri {
 
         /** Особенности защищенности данных в Android 11+ */
-        val storageDir = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        val storageDir =
             File(Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_DOCUMENTS),"Word_Wizard");
-        } else {
-            /**Запись в Android -11 */
-            File(Environment.getExternalStorageDirectory(),"Word_Wizard");
-        }
 
         /** Если директории не существует */
         if (!storageDir.exists()) {
@@ -48,7 +44,7 @@ object SaveExternalStorage {
         return Uri.fromFile(imageFile)
     }
 
-    private fun naming(index:Int = 1, storageDir:File ):File{
+    fun naming(index:Int = 1, storageDir:File ):File{
         return if (File(storageDir, "image${index}.jpg").exists()) {
             var index2 = index
             naming(++index2,storageDir)

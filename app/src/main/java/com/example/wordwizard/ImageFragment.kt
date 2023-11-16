@@ -22,7 +22,7 @@ class ImageFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = RecognizeImageBinding.inflate(inflater,container, false)
+        binding = RecognizeImageBinding.inflate(inflater,container,false)
         binding.imageRegLarge.setImageURI(Uri.parse(image))
         return binding.root
     }

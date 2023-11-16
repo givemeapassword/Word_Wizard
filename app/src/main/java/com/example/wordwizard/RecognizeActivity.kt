@@ -6,20 +6,15 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
-import android.opengl.Visibility
-import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.activity.OnBackPressedDispatcher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import com.example.wordwizard.databinding.ActivityRecognizeBinding
 import com.example.wordwizard.db.MyDbManager
 import com.example.wordwizard.db.SaveExternalStorage
@@ -73,7 +68,8 @@ class RecognizeActivity : AppCompatActivity() {
                 fragment.arguments = bundle
                 supportFragmentManager
                     .beginTransaction()
-                    .replace(R.id.recognize_image_layout,fragment)
+                    .replace(R.id.recognize_layout,fragment)
+                    .addToBackStack(null)
                     .commit()
 
             }
@@ -81,7 +77,12 @@ class RecognizeActivity : AppCompatActivity() {
                 onBackPressedDispatcher.onBackPressed()
             }
             regDown.setOnClickListener{
-
+                val pdfFilePath = "${Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS)}/${textView.text.toString().substring(1,11)}.pdf"
+                val convert = ConvertTextToPdf(textView.text.toString(),pdfFilePath)
+                val outputFilePath = "${this@RecognizeActivity.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)}/textView.pdf"
+                convert.convert()
+                convert.savePdfToStorage(pdfFilePath,outputFilePath)
+                Toast.makeText(this@RecognizeActivity,"Файл находиться в ${Environment.getExternalStorageDirectory()}",Toast.LENGTH_SHORT).show()
             }
             regCopy.setOnClickListener{
                 val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
@@ -91,7 +92,10 @@ class RecognizeActivity : AppCompatActivity() {
 
             }
             regShare.setOnClickListener{
-
+                val intent = Intent(Intent.ACTION_SEND)
+                intent.type = "text/plain"
+                intent.putExtra(Intent.EXTRA_TEXT,textView.text.toString())
+                startActivity(Intent.createChooser(intent, "Поделиться через:"))
             }
         }
     }

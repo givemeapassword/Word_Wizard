@@ -2,6 +2,20 @@
     <!-- Base application theme. -->
     <style name="Base.V30.Theme.WordWizard" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Primary brand color. -->
+        <item name="colorSurface">@color/regime_button</item>
+        <item name="colorOnSurfaceVariant">@color/text</item>
+        <item name="colorSurfaceContainer">@color/bottom_sheet</item>
+        <item name="android:windowBackground">@color/card_copy</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="colorOnPrimaryContainer">@color/icon_recognize</item>
+        <item name="colorPrimaryContainer">@color/regime_button</item>
+        <item name="colorOnPrimary">@color/icon_recognize</item>
+        <item name="colorPrimary">@color/regime_button</item>
+        <item name="colorOutlineVariant">@color/regime_button</item>
+        <item name="textAppearanceCaption">@color/header_back</item>
+        <item name="colorOnSecondaryContainer">@color/text</item>
+        <item name="colorSecondaryContainer">@color/header_back_hover</item>
+        <item name="colorOnTertiary">@color/plate_color</item>
 
 
     </style>

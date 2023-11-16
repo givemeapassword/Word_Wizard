@@ -1,9 +1,14 @@
 package com.example.wordwizard.card
 
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
 import com.example.wordwizard.R
@@ -22,6 +27,18 @@ class CardAdapter(private val listener: Listener): RecyclerView.Adapter<CardAdap
                     textCard.text = cardData.title
                     cardId.setOnClickListener{
                         listener.onClick(cardData)
+                    }
+                    cardShare.setOnClickListener{
+                        val intent = Intent(Intent.ACTION_SEND)
+                        intent.type = "text/plain"
+                        intent.putExtra(Intent.EXTRA_TEXT,textCard.text.toString())
+                        cardShare.context.startActivity(Intent.createChooser(intent, "Поделиться через:"))
+                    }
+                    cardCopy.setOnClickListener{
+                        val clipboard = cardId.context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                        val clip: ClipData = ClipData.newPlainText(textCard.text.toString(),textCard.text.toString())
+                        clipboard.setPrimaryClip(clip)
+                        Toast.makeText(cardId.context,"Сopied", Toast.LENGTH_SHORT).show()
                     }
             }
         }
