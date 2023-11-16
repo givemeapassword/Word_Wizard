@@ -1,7 +1,6 @@
 package com.example.wordwizard.db
 import android.graphics.Bitmap
 import android.net.Uri
-import android.os.Build
 import android.os.Environment
 import android.util.Log
 import java.io.File
@@ -44,7 +43,7 @@ object SaveExternalStorage {
         return Uri.fromFile(imageFile)
     }
 
-    fun naming(index:Int = 1, storageDir:File ):File{
+    private fun naming(index:Int = 1, storageDir:File ):File{
         return if (File(storageDir, "image${index}.jpg").exists()) {
             var index2 = index
             naming(++index2,storageDir)

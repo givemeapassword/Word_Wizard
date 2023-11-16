@@ -14,10 +14,11 @@ class MyDbManager(context: Context) {
     fun openDb(){
         db = MyDbHelper.writableDatabase
     }
-    fun insertToDb( text: String, image: String){
+    fun insertToDb( text: String, image: String, time: String){
         val values = ContentValues().apply{
             put(MyDbNameClass.COLUMN_NAME_TEXT,text)
             put(MyDbNameClass.COLUMN_NAME_IMAGE,image)
+            put(MyDbNameClass.COLUMN_NAME_DATA,time)
         }
         db?.insert(MyDbNameClass.TABLE_NAME,null,values)
     }
@@ -38,13 +39,14 @@ class MyDbManager(context: Context) {
                 val text = cursor.getString(cursor.getColumnIndexOrThrow(MyDbNameClass.COLUMN_NAME_TEXT))
                 val image = cursor.getString(cursor.getColumnIndexOrThrow(MyDbNameClass.COLUMN_NAME_IMAGE))
                 val id = cursor.getInt(cursor.getColumnIndexOrThrow(BaseColumns._ID))
-                val card = CardData(image, text, id)
+                val data = cursor.getString(cursor.getColumnIndexOrThrow(MyDbNameClass.COLUMN_NAME_DATA))
+                val card = CardData(image, text, id, data)
                 cards.add(card)
             } while (cursor.moveToNext())
         }
 
         cursor.close()
-        //db.close()
+        db.close()
         return cards
     }
 

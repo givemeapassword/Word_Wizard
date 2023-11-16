@@ -23,6 +23,8 @@ import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.Text
 import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class RecognizeActivity : AppCompatActivity() {
     private val MyDbManager = MyDbManager(this)
@@ -56,21 +58,26 @@ class RecognizeActivity : AppCompatActivity() {
                 MyDbManager.openDb()
                 Log.i("RecognizeActivity","SaveButton")
                 val savedImagePath = SaveExternalStorage.saveImageToExternalStorage(imageBitmap)
-                MyDbManager.insertToDb(textView.text.toString(),savedImagePath.toString())
+                MyDbManager.insertToDb(textView.text.toString(),savedImagePath.toString(),getCreatedTime())
                 MyDbManager.closeDb()
                 startActivity(Intent(this@RecognizeActivity,
                     MainActivity::class.java).setAction("your.custom.action"))
             }
             imageView.setOnClickListener {
-                val fragment = ImageFragment()
-                val bundle = Bundle()
-                bundle.putString("uri",cardSaveDataImage)
-                fragment.arguments = bundle
-                supportFragmentManager
-                    .beginTransaction()
-                    .replace(R.id.recognize_layout,fragment)
-                    .addToBackStack(null)
-                    .commit()
+                if (intent.extras != null) {
+                    val fragment = ImageFragment()
+                    val bundle = Bundle()
+                    bundle.putString("uri", cardSaveDataImage)
+                    fragment.arguments = bundle
+                    supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.recognize_layout, fragment)
+                        .addToBackStack(null)
+                        .commit()
+                }
+                else{
+                    Toast.makeText(this@RecognizeActivity,"Сохраните и перезайдите",Toast.LENGTH_SHORT).show()
+                }
 
             }
             arrowBack.setOnClickListener{
@@ -97,6 +104,9 @@ class RecognizeActivity : AppCompatActivity() {
                 intent.putExtra(Intent.EXTRA_TEXT,textView.text.toString())
                 startActivity(Intent.createChooser(intent, "Поделиться через:"))
             }
+            textView.setOnClickListener {
+                textView.requestFocus()
+            }
         }
     }
     private fun launchImage() {
@@ -116,6 +126,7 @@ class RecognizeActivity : AppCompatActivity() {
                 binding.imageView.setImageBitmap(imageBitmap)
             }
             else{
+                println("Мы тут1")
                 onBackPressedDispatcher.onBackPressed()
             }
         }
@@ -132,5 +143,10 @@ class RecognizeActivity : AppCompatActivity() {
             .addOnFailureListener {
                 binding.textView.text = R.string.recognize_error.toString()
             }
+    }
+    private fun getCreatedTime(): String {
+        val currentDateTime = LocalDateTime.now()
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+        return currentDateTime.format(formatter)
     }
 }

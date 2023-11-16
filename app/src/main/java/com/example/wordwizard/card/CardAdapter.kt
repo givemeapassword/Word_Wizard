@@ -1,6 +1,5 @@
 package com.example.wordwizard.card
 
-
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
@@ -16,7 +15,6 @@ import com.example.wordwizard.databinding.CardItemBinding
 import com.example.wordwizard.db.MyDbManager
 
 class CardAdapter(private val listener: Listener): RecyclerView.Adapter<CardAdapter.CardHolder>() {
-
     private val cardList = ArrayList<CardData>()
 
     class CardHolder(item: View):RecyclerView.ViewHolder(item) {
@@ -40,8 +38,10 @@ class CardAdapter(private val listener: Listener): RecyclerView.Adapter<CardAdap
                         clipboard.setPrimaryClip(clip)
                         Toast.makeText(cardId.context,"Сopied", Toast.LENGTH_SHORT).show()
                     }
+                    timeCard.text = cardData.date
             }
         }
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardHolder {
@@ -68,6 +68,8 @@ class CardAdapter(private val listener: Listener): RecyclerView.Adapter<CardAdap
         notifyItemRangeChanged(0,cardList.size)
         notifyItemRemoved(position)
     }
+
+
 
     interface Listener{
         fun onClick(cardData: CardData)

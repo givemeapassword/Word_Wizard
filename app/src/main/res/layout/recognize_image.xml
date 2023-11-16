@@ -1,16 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="horizontal"
-    android:id="@+id/recognize_image_layout">
+<com.otaliastudios.zoom.ZoomLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/text">
 
-    <ImageView
+    <com.otaliastudios.zoom.ZoomImageView
         android:id="@+id/image_reg_large"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/panda"
-        android:layout_gravity="center"
-        android:layout_weight="1"/>
+        app:transformation="centerInside"
+        app:transformationGravity="center"
+        app:alignment="center"
+        app:overScrollHorizontal="true"
+        app:overScrollVertical="true"
+        app:overPinchable="true"
+        app:horizontalPanEnabled="true"
+        app:verticalPanEnabled="true"
+        app:zoomEnabled="false"
+        app:flingEnabled="false"
+        app:scrollEnabled="false"
+        app:oneFingerScrollEnabled="true"
+        app:twoFingersScrollEnabled="true"
+        app:threeFingersScrollEnabled="true"
+        app:minZoom="0.8"
+        app:minZoomType="realZoom"
+        app:maxZoom="2.5"
+        app:maxZoomType="realZoom"
+        app:animationDuration="280"/>
 
-</LinearLayout>
+</com.otaliastudios.zoom.ZoomLayout>
