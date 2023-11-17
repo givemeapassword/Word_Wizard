@@ -1,4 +1,4 @@
-package com.example.wordwizard
+package com.example.wordwizard.common
 import com.itextpdf.kernel.pdf.PdfDocument
 import com.itextpdf.kernel.pdf.PdfWriter
 import com.itextpdf.layout.Document
@@ -12,13 +12,13 @@ class ConvertTextToPdf(val text: String, fileName: String) {
     private val pdfDocument = PdfDocument(pdfWriter)
     private val document = Document(pdfDocument)
 
+    fun savePdfToStorage(pdfFilePath: String, outputFilePath: String) {
 
-    fun convert(){
+        /**Вставка текста в документ**/
         document.add(Paragraph(text).setTextAlignment(TextAlignment.LEFT))
         document.close()
-    }
 
-    fun savePdfToStorage(pdfFilePath: String, outputFilePath: String) {
+        /**Копирование в другой файл, расположенный в другой папке**/
         val pdfFile = File(pdfFilePath)
         val outputFile = File(outputFilePath)
 

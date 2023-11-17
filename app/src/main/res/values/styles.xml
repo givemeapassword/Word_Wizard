@@ -33,7 +33,7 @@
     </style>
 
     <style name="CardText" parent="Base.V30.Theme.WordWizard">
-        <item name="cardBackgroundColor">@color/plate_color</item>
+        <item name="cardBackgroundColor">@color/regime_button</item>
     </style>
 
 

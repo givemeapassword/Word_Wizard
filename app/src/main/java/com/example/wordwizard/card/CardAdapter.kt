@@ -1,9 +1,11 @@
 package com.example.wordwizard.card
 
+import android.annotation.SuppressLint
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,24 +23,32 @@ class CardAdapter(private val listener: Listener): RecyclerView.Adapter<CardAdap
         private val binding = CardItemBinding.bind(item)
         fun bind(cardData: CardData, listener: Listener){
             binding.apply {
-                    imageCard.setImageURI(cardData.imageId.toUri())
-                    textCard.text = cardData.title
-                    cardId.setOnClickListener{
-                        listener.onClick(cardData)
+
+                /**инициализация всех данных карточки**/
+                imageCard.setImageURI(cardData.imageId.toUri())
+                textCard.text = cardData.title
+                timeCard.text = cardData.date
+
+                /**инициализация нажатия на саму картчку**/
+                cardId.setOnClickListener{
+                    listener.onClick(cardData)
+                }
+
+                /**инициализация нажатия на "поделиться"**/
+                cardShare.setOnClickListener{
+                    val intent = Intent(Intent.ACTION_SEND).apply {
+                        type = "text/plain"
+                        putExtra(Intent.EXTRA_TEXT,textCard.text.toString())
                     }
-                    cardShare.setOnClickListener{
-                        val intent = Intent(Intent.ACTION_SEND)
-                        intent.type = "text/plain"
-                        intent.putExtra(Intent.EXTRA_TEXT,textCard.text.toString())
-                        cardShare.context.startActivity(Intent.createChooser(intent, "Поделиться через:"))
-                    }
-                    cardCopy.setOnClickListener{
-                        val clipboard = cardId.context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                        val clip: ClipData = ClipData.newPlainText(textCard.text.toString(),textCard.text.toString())
-                        clipboard.setPrimaryClip(clip)
-                        Toast.makeText(cardId.context,"Сopied", Toast.LENGTH_SHORT).show()
-                    }
-                    timeCard.text = cardData.date
+                    cardShare.context.startActivity(Intent.createChooser(intent, "Поделиться через:"))
+                }
+                /**инициализация нажатия на "копировать"**/
+                cardCopy.setOnClickListener{
+                    val clipboard = cardId.context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                    val clip: ClipData = ClipData.newPlainText(textCard.text.toString(),textCard.text.toString())
+                    clipboard.setPrimaryClip(clip)
+                    Toast.makeText(cardId.context,"Скопировано", Toast.LENGTH_SHORT).show()
+                }
             }
         }
 
@@ -56,10 +66,10 @@ class CardAdapter(private val listener: Listener): RecyclerView.Adapter<CardAdap
     override fun onBindViewHolder(holder: CardHolder, position: Int) {
         holder.bind(cardList[position],listener)
     }
+
     fun addCard(cardData: ArrayList<CardData>){
         cardList.clear()
         cardList.addAll(cardData)
-        notifyDataSetChanged()
     }
 
     fun removeCard(position: Int,dbManager: MyDbManager){
@@ -68,8 +78,6 @@ class CardAdapter(private val listener: Listener): RecyclerView.Adapter<CardAdap
         notifyItemRangeChanged(0,cardList.size)
         notifyItemRemoved(position)
     }
-
-
 
     interface Listener{
         fun onClick(cardData: CardData)

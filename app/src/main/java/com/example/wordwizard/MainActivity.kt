@@ -29,13 +29,19 @@ class MainActivity : AppCompatActivity(),CardAdapter.Listener {
         Log.i("Main","OnCreate Main")
 
         binding.apply {
+
+            /**кнопка меню**/
             menu.setOnClickListener {
                 Log.i("Main","Menu Click")
                 drawerLayout.openDrawer(GravityCompat.START)
             }
+
+            /**кнопка подписки**/
             RV.setOnClickListener{
                 Toast.makeText(this@MainActivity,"В разработке", Toast.LENGTH_SHORT).show()
             }
+
+            /**кнопка навигацинного фрагмента**/
             navView.setNavigationItemSelectedListener {
                 when (it.itemId) {
                     R.id.Licenses -> { Toast.makeText(this@MainActivity,"В разработке", Toast.LENGTH_SHORT).show() }
@@ -48,6 +54,8 @@ class MainActivity : AppCompatActivity(),CardAdapter.Listener {
                 }
                 true
             }
+
+            /**кнопка выбора режима**/
             imageButton.setOnClickListener {
                 Log.i("Main","ImageButton Click")
                 BottomSheetDialog().show(supportFragmentManager,"BottomSheetDialog")
@@ -57,8 +65,7 @@ class MainActivity : AppCompatActivity(),CardAdapter.Listener {
         binding.apply {
             Log.i("Main","Create RV")
             rcView.layoutManager = LinearLayoutManager(this@MainActivity)
-            val swapHelper = getSwapMng()
-            swapHelper.attachToRecyclerView(rcView)
+            getSwapMng().attachToRecyclerView(rcView)
             rcView.adapter = adapter
             taskList.addAll(MyDbManager.getAllCards())
             adapter.addCard(taskList)
@@ -67,7 +74,7 @@ class MainActivity : AppCompatActivity(),CardAdapter.Listener {
 
     override fun onClick(cardData: CardData) {
         startActivity(Intent(this@MainActivity,RecognizeActivity::class.java)
-            .setAction("your.custom.action")
+            .setAction("Card")
             .putExtra("card_image",cardData.imageId)
             .putExtra("card_text",cardData.title))
     }
@@ -76,6 +83,7 @@ class MainActivity : AppCompatActivity(),CardAdapter.Listener {
     private fun getSwapMng(): ItemTouchHelper{
         return ItemTouchHelper(object:ItemTouchHelper
             .SimpleCallback(0,ItemTouchHelper.RIGHT){
+
             override fun onMove(
                 recyclerView: RecyclerView,
                 viewHolder: RecyclerView.ViewHolder,
@@ -85,6 +93,7 @@ class MainActivity : AppCompatActivity(),CardAdapter.Listener {
             }
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                Log.i("Swipe","Карточка удалена")
                 adapter.removeCard(viewHolder.adapterPosition,MyDbManager)
             }
         })

@@ -1,7 +1,6 @@
 package com.example.wordwizard
 
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.ContextCompat
 import com.example.wordwizard.databinding.FragmentBottomSheetDialogBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
@@ -18,7 +16,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 class BottomSheetDialog : BottomSheetDialogFragment() {
     private lateinit var permissionLauncher: ActivityResultLauncher<String>
     private lateinit var binding: FragmentBottomSheetDialogBinding
-    private val PHOTO_PERMISSIONS_REQUEST_CODE = 200;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,11 +32,11 @@ class BottomSheetDialog : BottomSheetDialogFragment() {
         /** биндинг кнопок слушателей */
         binding.apply {
             Camera.setOnClickListener {
-                val intent =
-                    Intent(context,RecognizeActivity::class.java).setAction("your.custom.action")
-                startActivity(intent)
+                startActivity(Intent(context,RecognizeActivity::class.java).setAction("Camera"))
             }
-            //PHOTO
+            Photo.setOnClickListener {
+                startActivity(Intent(context,RecognizeActivity::class.java).setAction("Photo"))
+            }
             //QR
             //INK
         }
@@ -71,24 +68,12 @@ class BottomSheetDialog : BottomSheetDialogFragment() {
 
     private fun checkCameraPermission(){
         when{
-            ContextCompat.checkSelfPermission(
-                requireContext(),
-                android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
-            -> {
-                /*startActivityForResult(
-                    Intent(MediaStore.ACTION_IMAGE_CAPTURE),
-                    PHOTO_REQUEST_CODE
-                )*/
-            }
             shouldShowRequestPermissionRationale(android.Manifest.permission.CAMERA) -> {
-                requestPermissions(
-                    arrayOf(android.Manifest.permission.CAMERA),PHOTO_PERMISSIONS_REQUEST_CODE)
+                permissionLauncher.launch(android.Manifest.permission.CAMERA)
             }
             else -> {
                 permissionLauncher.launch(android.Manifest.permission.CAMERA)
             }
         }
     }
-
-
 }
