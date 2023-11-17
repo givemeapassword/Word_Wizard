@@ -41,6 +41,7 @@
                     android:contentDescription="@string/image_card_description" />
             </com.google.android.material.card.MaterialCardView>
 
+
             <TextView
                 android:id="@+id/text_card"
                 style="@style/CardText_Main"
@@ -49,10 +50,11 @@
                 android:layout_marginStart="19dp"
                 android:layout_marginTop="18dp"
                 android:layout_marginBottom="5dp"
-                app:layout_constraintStart_toEndOf="@+id/image_card_view"
                 app:layout_constraintBottom_toTopOf="@id/time_card"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/image_card_view"
                 app:layout_constraintTop_toTopOf="parent" />
-
 
             <TextView
                 android:id="@+id/time_card"

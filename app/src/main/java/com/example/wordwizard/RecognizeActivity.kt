@@ -34,6 +34,7 @@ class RecognizeActivity : AppCompatActivity() {
     private val recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
     private lateinit var binding: ActivityRecognizeBinding
     private lateinit var cardSaveDataImage: String
+    private var uriPhotoPicker: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +45,7 @@ class RecognizeActivity : AppCompatActivity() {
         /** принятие данных карточки и их прорисовка**/
         when (intent.action) {
             "Card" -> {
+                Log.i("RecognizeActivity","Просмотр сохраненной карточки")
                 cardSaveDataImage = intent.getStringExtra("card_image")!!
                 val cardSaveData = intent.getStringExtra("card_text")
                 binding.apply {
@@ -53,40 +55,52 @@ class RecognizeActivity : AppCompatActivity() {
                 }
             }
             "Camera" -> {
-                launchImage()
+                Log.i("RecognizeActivity","Режим камеры")
+                launchCamera()
             }
             "Photo" -> {
+                Log.i("RecognizeActivity","Режим фото")
+                uriPhotoPicker = intent.getStringExtra("UriPicker")
+                binding.imageView.setImageURI(uriPhotoPicker?.toUri())
+                processImage(InputImage.fromFilePath(this,uriPhotoPicker!!.toUri()))
 
             }
+            //QR
+            //INK
         }
 
         binding.apply {
 
             SaveBtn.setOnClickListener {
                 MyDbManager.openDb()
-                Log.i("RecognizeActivity","SaveButton")
-                val savedImagePath = Uri.fromFile(photoFile)
-                MyDbManager.insertToDb(textView.text.toString(),savedImagePath.toString(),getCreatedTime())
+                Log.i("RecognizeActivity", "SaveButton")
+                MyDbManager.insertToDb(
+                    textView.text.toString(),
+                    Uri.fromFile(photoFile).toString(), getCreatedTime()
+                )
                 MyDbManager.closeDb()
-                startActivity(Intent(this@RecognizeActivity,
-                    MainActivity::class.java).setAction("your.custom.action"))
+                startActivity(
+                    Intent(
+                        this@RecognizeActivity,
+                        MainActivity::class.java
+                    ).setAction("your.custom.action")
+                )
             }
 
             imageView.setOnClickListener {
-                if (intent.extras != null) {
-                    val fragment = ImageFragment()
-                    val bundle = Bundle()
-                    bundle.putString("uri", cardSaveDataImage)
-                    fragment.arguments = bundle
-                    supportFragmentManager
-                        .beginTransaction()
-                        .replace(R.id.recognize_layout, fragment)
-                        .addToBackStack(null)
-                        .commit()
+                when (intent.action) {
+                    "Photo" -> cardSaveDataImage = uriPhotoPicker.toString()
+                    "Camera" -> cardSaveDataImage = Uri.fromFile(photoFile).toString()
                 }
-                else{
-                    Toast.makeText(this@RecognizeActivity,"Сохраните и перезайдите",Toast.LENGTH_SHORT).show()
-                }
+                val fragment = ImageFragment()
+                val bundle = Bundle()
+                bundle.putString("uri", cardSaveDataImage)
+                fragment.arguments = bundle
+                supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.recognize_layout, fragment)
+                    .addToBackStack(null)
+                    .commit()
             }
 
             arrowBack.setOnClickListener{
@@ -138,11 +152,10 @@ class RecognizeActivity : AppCompatActivity() {
         )
     }
 
-    private fun launchImage() {
+    private fun launchCamera() {
         try {
             val takeImageIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
             val photoURI = FileProvider.getUriForFile(this, "com.example.wordwizard.fileprovider", photoFile)
-            println(photoURI)
             takeImageIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
             takeImageLauncher.launch(takeImageIntent)
         } catch (e: Exception) {
