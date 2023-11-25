@@ -10,17 +10,22 @@
         android:id="@+id/imageView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:src="@drawable/scan_download"
-        android:contentDescription="@string/download_screen_description" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:contentDescription="@string/download_screen_description"
+        android:src="@drawable/scan_download" />
 
-    <com.google.android.material.progressindicator.LinearProgressIndicator
+    <ProgressBar
+        android:id="@+id/progress_indicator"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_below="@+id/imageView3"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="40dp"
-        android:layout_marginEnd="155dp"
+        android:layout_marginEnd="585dp"
         android:layout_marginBottom="131dp"
         android:indeterminateTint="#222780"
         app:layout_constraintBottom_toBottomOf="parent"

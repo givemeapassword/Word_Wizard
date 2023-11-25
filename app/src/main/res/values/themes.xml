@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Base.V30.Theme.WordWizard" parent="Theme.Material3.Light.NoActionBar">
         <!-- Primary brand color. -->
@@ -6,6 +6,7 @@
         <item name="colorOnSurfaceVariant">@color/text</item>
         <item name="colorSurfaceContainer">@color/bottom_sheet</item>
         <item name="android:windowBackground">@color/card_copy</item>
+        <item name="android:windowIsTranslucent">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="colorOnPrimaryContainer">@color/icon_recognize</item>
         <item name="colorPrimaryContainer">@color/regime_button</item>

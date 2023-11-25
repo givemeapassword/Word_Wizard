@@ -34,18 +34,21 @@ class MyDbManager(context: Context) {
         val db = MyDbHelper.readableDatabase
         val cursor: Cursor = db.rawQuery(MyDbNameClass.SELECT_ALL, null)
 
-        if (cursor.moveToFirst()) {
-            do {
-                val text = cursor.getString(cursor.getColumnIndexOrThrow(MyDbNameClass.COLUMN_NAME_TEXT))
-                val image = cursor.getString(cursor.getColumnIndexOrThrow(MyDbNameClass.COLUMN_NAME_IMAGE))
-                val id = cursor.getInt(cursor.getColumnIndexOrThrow(BaseColumns._ID))
-                val data = cursor.getString(cursor.getColumnIndexOrThrow(MyDbNameClass.COLUMN_NAME_DATA))
-                val card = CardData(image, text, id, data)
-                cards.add(card)
-            } while (cursor.moveToNext())
+        with(cursor) {
+            if (moveToFirst()) {
+                do {
+                    val text = getString(cursor.getColumnIndexOrThrow(MyDbNameClass.COLUMN_NAME_TEXT))
+                    val image = getString(cursor.getColumnIndexOrThrow(MyDbNameClass.COLUMN_NAME_IMAGE))
+                    val id = cursor.getInt(cursor.getColumnIndexOrThrow(BaseColumns._ID))
+                    val data = getString(cursor.getColumnIndexOrThrow(MyDbNameClass.COLUMN_NAME_DATA))
+                    val card = CardData(image, text, id, data)
+                    cards.add(card)
+                } while (moveToNext())
+            }
+            close()
         }
 
-        cursor.close()
+
         db.close()
         return cards
     }

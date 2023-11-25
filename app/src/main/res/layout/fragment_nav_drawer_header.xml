@@ -22,7 +22,7 @@
             android:layout_height="match_parent"
             android:textAppearance="@style/Text_Shadow"
             android:text="@string/app_name"
-            android:textSize="18sp"
+            android:textSize="20sp"
             android:gravity="center"
             android:fontFamily="@font/serif_display_italic"/>
     </LinearLayout>

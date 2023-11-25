@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/recognize_back"
+    tools:context=".RecognizeActivity"
+    android:id="@+id/recognize_layout">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="13dp"
+        android:clickable="true"
+        android:id="@+id/arrow_back"
+        android:src="@drawable/arrow_back"
+        app:layout_constraintEnd_toStartOf="@+id/materialTextView2"
+        app:layout_constraintHorizontal_bias="0.121"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/materialTextView2"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="550dp"
+        android:fontFamily="@font/serif_display_italic"
+        android:text="@string/app_name"
+        android:textAppearance="@style/Text_Shadow"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/materialCardView"
+        style="@style/CardText"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginVertical="80dp"
+        android:background="@drawable/text_recognize_shape"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="80dp">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="110dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="@font/robotomono_bold"
+            android:text="@string/recognized_text"
+            android:textColor="@color/text"
+            android:textSize="19sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/textView"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+
+        </com.google.android.material.textview.MaterialTextView>
+
+        <View
+            android:layout_width="250dp"
+            android:layout_height="3dp"
+            android:layout_marginStart="110dp"
+            android:layout_marginTop="55dp"
+            android:layout_marginEnd="81dp"
+            android:background="@drawable/dashed_underline" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="90dp"
+            android:layout_marginBottom="10dp"
+            android:cursorVisible="true"
+            android:focusableInTouchMode="true"
+            android:fontFamily="@font/robotomono_italic"
+            android:inputType="textMultiLine"
+            android:maxLines="50"
+            android:padding="8dp"
+            android:text="@string/text_start_recognize"
+            android:textColor="@color/text"
+            android:textIsSelectable="true"
+            app:fontFamily="@font/robotomono_italic" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_marginEnd="13dp"
+            android:layout_marginBottom="21dp"
+            app:cardCornerRadius="20dp">
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="10dp"
+            android:layout_margin="14dp">
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:clickable="true"
+                android:contentDescription="@string/set_description_recognize"
+                android:scaleType="centerCrop"
+                android:src="@drawable/example" />
+        </com.google.android.material.card.MaterialCardView>
+    </com.google.android.material.card.MaterialCardView>
+
+    <ImageView
+        android:id="@+id/reg_share"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginBottom="28dp"
+        android:layout_marginEnd="5dp"
+        android:src="@drawable/share"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/reg_down" />
+
+    <ImageView
+        android:id="@+id/reg_down"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="1056dp"
+        android:layout_marginBottom="28dp"
+        android:src="@drawable/download"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/materialCardView" />
+
+    <ImageView
+        android:id="@+id/reg_copy"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginBottom="28dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="5dp"
+        android:src="@drawable/copy"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/reg_share"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/Save_btn"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_gravity="end|center_vertical"
+        android:layout_margin="25dp"
+        android:insetLeft="0dp"
+        android:insetTop="0dp"
+        android:insetRight="0dp"
+        android:insetBottom="0dp"
+        app:cornerRadius="10dp"
+        app:icon="@drawable/plus"
+        app:iconGravity="textStart"
+        app:iconPadding="0dp"
+        app:iconSize="30dp"
+        android:text=""
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

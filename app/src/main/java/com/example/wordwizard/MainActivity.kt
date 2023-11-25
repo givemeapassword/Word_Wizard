@@ -3,7 +3,6 @@ package com.example.wordwizard
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
@@ -26,13 +25,11 @@ class MainActivity : AppCompatActivity(),CardAdapter.Listener {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        Log.i("Main","OnCreate Main")
 
         binding.apply {
 
             /**кнопка меню**/
             menu.setOnClickListener {
-                Log.i("Main","Menu Click")
                 drawerLayout.openDrawer(GravityCompat.START)
             }
 
@@ -57,13 +54,11 @@ class MainActivity : AppCompatActivity(),CardAdapter.Listener {
 
             /**кнопка выбора режима**/
             imageButton.setOnClickListener {
-                Log.i("Main","ImageButton Click")
                 BottomSheetDialog().show(supportFragmentManager,"BottomSheetDialog")
             }
         }
 
         binding.apply {
-            Log.i("Main","Create RV")
             rcView.layoutManager = LinearLayoutManager(this@MainActivity)
             getSwapMng().attachToRecyclerView(rcView)
             rcView.adapter = adapter
@@ -93,7 +88,6 @@ class MainActivity : AppCompatActivity(),CardAdapter.Listener {
             }
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                Log.i("Swipe","Карточка удалена")
                 adapter.removeCard(viewHolder.adapterPosition,MyDbManager)
             }
         })

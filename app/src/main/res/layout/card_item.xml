@@ -24,8 +24,8 @@
                 android:id="@+id/image_card_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                app:cardCornerRadius="100dp"
+                android:layout_margin="15dp"
+                app:cardCornerRadius="10dp"
                 app:cardElevation="30dp"
                 app:strokeWidth="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -34,9 +34,9 @@
                 app:layout_constraintVertical_bias="0.361">
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/image_card"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:scaleType="fitXY"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:scaleType="centerCrop"
                     tools:srcCompat="@tools:sample/avatars"
                     android:contentDescription="@string/image_card_description" />
             </com.google.android.material.card.MaterialCardView>

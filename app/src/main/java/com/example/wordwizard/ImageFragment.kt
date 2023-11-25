@@ -16,7 +16,7 @@ class ImageFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        image = arguments?.getString("uri").toString()
+        image = arguments?.getString("uri")!!
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

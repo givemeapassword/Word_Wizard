@@ -11,20 +11,18 @@
     </style>
 
     <style name="CardText_Main" >
-        <item name="android:ellipsize">end</item>
+        <item name="android:ellipsize">start</item>
         <item name="android:textSize">15sp</item>
         <item name="fontFamily">@font/robotomono_regular</item>
         <item name="android:text">@string/main_button</item>
         <item name="android:textColor">@color/text</item>
-        <item name="android:maxLines">2</item>
+        <item name="android:maxLines">1</item>
     </style>
     <style name="CardText_Second" >
-        <item name="android:ellipsize">end</item>
         <item name="android:textSize">12sp</item>
         <item name="fontFamily">@font/robotomono_italic</item>
         <item name="android:text">@string/time</item>
         <item name="android:textColor">@color/text</item>
-        <item name="android:maxLines">1</item>
     </style>
 
     <style name="DrawerHeader_text" parent="Widget.MaterialComponents.TextView">
