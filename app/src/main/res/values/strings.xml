@@ -31,4 +31,6 @@
     <string name="card_copy_description">Copy Button</string>
     <string name="card_share_description">Share Button</string>
     <string name="download_description">Download Button</string>
+    <string name="detect_button_qr">detect</string>
+    <string name="textView_qr">Here will be the text</string>
 </resources>

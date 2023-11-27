@@ -30,6 +30,7 @@ android {
     }
     buildFeatures{
         viewBinding = true
+        dataBinding = true
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -46,10 +47,12 @@ dependencies {
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.constraintlayout)
+    implementation(libs.androidx.databinding.runtime)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
     implementation(libs.play.services.mlkit.text.recognition)
     implementation (libs.itext7.core)
     implementation(libs.zoomlayout)
+    implementation (libs.barcode.scanning)
 }

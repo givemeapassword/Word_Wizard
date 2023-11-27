@@ -38,6 +38,9 @@
     <style name="Activity_Recognize" parent="Base.V30.Theme.WordWizard">
         <item name="android:statusBarColor">@color/recognize_back</item>
     </style>
+    <style name="Activity_QR" parent="Base.V30.Theme.WordWizard">
+        <item name="android:statusBarColor">@color/card_share</item>
+    </style>
 
 
 

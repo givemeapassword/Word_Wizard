@@ -45,7 +45,8 @@ class BottomSheetDialog : BottomSheetDialogFragment() {
                     (ActivityResultContracts.PickVisualMedia.ImageOnly))
             }
             QRCode.setOnClickListener{
-                toastInDeveloping()
+                startActivity(Intent(context,
+                    QrCodeActivity::class.java).setAction("Camera"))
             }
             DigitalInk.setOnClickListener{
                 toastInDeveloping()

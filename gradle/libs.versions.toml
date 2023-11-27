@@ -1,5 +1,6 @@
 [versions]
 agp = "8.2.0-alpha15"
+barcode-scanning = "17.2.0"
 itext7-core = "7.1.15"
 kotlin = "1.8.21"
 core-ktx = "1.12.0"
@@ -11,8 +12,10 @@ material = "1.10.0"
 constraintlayout = "2.1.4"
 play-services-mlkit-text-recognition = "19.0.0"
 zoomlayout = "1.9.0"
+databinding-runtime = "8.1.4"
 
 [libraries]
+barcode-scanning = { module = "com.google.mlkit:barcode-scanning", version.ref = "barcode-scanning" }
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
 itext7-core = { module = "com.itextpdf:itext7-core", version.ref = "itext7-core" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -23,6 +26,7 @@ material = { group = "com.google.android.material", name = "material", version.r
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 play-services-mlkit-text-recognition = { module = "com.google.android.gms:play-services-mlkit-text-recognition", version.ref = "play-services-mlkit-text-recognition" }
 zoomlayout = { module = "com.otaliastudios:zoomlayout", version.ref = "zoomlayout" }
+androidx-databinding-runtime = { group = "androidx.databinding", name = "databinding-runtime", version.ref = "databinding-runtime" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
