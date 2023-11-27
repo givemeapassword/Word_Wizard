@@ -23,6 +23,9 @@
 
     <style name="Base.Theme.WordWizard" parent="Base.V30.Theme.WordWizard"/>
     <style name="Theme.WordWizard" parent="Base.Theme.WordWizard"/>
+    <style name="Theme.WordWizard.Launcher">
+        <item name="android:windowBackground">@drawable/activity_splash_screen</item>
+    </style>
 
 
 

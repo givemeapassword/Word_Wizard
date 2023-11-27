@@ -25,7 +25,7 @@
         android:id="@+id/materialTextView2"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="6dp"
         android:layout_marginStart="140dp"
         android:fontFamily="@font/serif_display_italic"
         android:text="@string/app_name"
@@ -52,7 +52,7 @@
             android:layout_marginStart="110dp"
             android:layout_marginTop="30dp"
             android:layout_marginBottom="16dp"
-            android:fontFamily="@font/robotomono_bold"
+            android:fontFamily="@font/roboto_mono_bold"
             android:text="@string/recognized_text"
             android:textColor="@color/text"
             android:textSize="19sp"
@@ -80,14 +80,14 @@
             android:layout_marginBottom="10dp"
             android:cursorVisible="true"
             android:focusableInTouchMode="true"
-            android:fontFamily="@font/robotomono_italic"
+            android:fontFamily="@font/roboto_mono_italic"
             android:inputType="textMultiLine"
             android:maxLines="50"
             android:padding="8dp"
             android:text="@string/text_start_recognize"
             android:textColor="@color/text"
             android:textIsSelectable="true"
-            app:fontFamily="@font/robotomono_italic" />
+            app:fontFamily="@font/roboto_mono_italic" />
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="wrap_content"
@@ -123,7 +123,8 @@
         android:layout_marginEnd="5dp"
         android:src="@drawable/share"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/reg_down" />
+        app:layout_constraintEnd_toStartOf="@+id/reg_down"
+        android:contentDescription="@string/card_share_description" />
 
     <ImageView
         android:id="@+id/reg_down"
@@ -133,7 +134,8 @@
         android:layout_marginBottom="28dp"
         android:src="@drawable/download"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/materialCardView" />
+        app:layout_constraintEnd_toEndOf="@+id/materialCardView"
+        android:contentDescription="@string/download_description" />
 
     <ImageView
         android:id="@+id/reg_copy"
@@ -146,7 +148,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/reg_share"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:contentDescription="@string/card_copy_description" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/Save_btn"

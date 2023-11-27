@@ -4,11 +4,12 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
 import com.example.wordwizard.R
 import com.example.wordwizard.databinding.CardItemBinding
@@ -23,7 +24,8 @@ class CardAdapter(private val listener: Listener): RecyclerView.Adapter<CardAdap
             binding.apply {
 
                 /**инициализация всех данных карточки**/
-                imageCard.setImageURI(cardData.imageId.toUri())
+                decodeByteArrayToBitmap(cardData.imageMipmapId)
+                imageCard.setImageBitmap(decodeByteArrayToBitmap(cardData.imageMipmapId))
                 textCard.text = cardData.title
                 timeCard.text = cardData.date
 
@@ -49,7 +51,9 @@ class CardAdapter(private val listener: Listener): RecyclerView.Adapter<CardAdap
                 }
             }
         }
-
+        private fun decodeByteArrayToBitmap(byteArray: ByteArray): Bitmap {
+            return  BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardHolder {
@@ -71,11 +75,12 @@ class CardAdapter(private val listener: Listener): RecyclerView.Adapter<CardAdap
     }
 
     fun removeCard(position: Int,dbManager: MyDbManager){
-        dbManager.deleteFromDb(cardList[position].id.toString())
+        dbManager.deleteFromDb(cardList[position].id)
         cardList.removeAt(position)
         notifyItemRangeChanged(0,cardList.size)
         notifyItemRemoved(position)
     }
+
 
     interface Listener{
         fun onClick(cardData: CardData)

@@ -5,10 +5,11 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
+import android.media.ThumbnailUtils
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
-import android.os.Handler
 import android.provider.MediaStore
 import android.view.View
 import android.widget.Toast
@@ -16,6 +17,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.core.net.toUri
+import androidx.lifecycle.lifecycleScope
 import com.example.wordwizard.common.ConvertTextToPdf
 import com.example.wordwizard.databinding.ActivityRecognizeBinding
 import com.example.wordwizard.db.MyDbManager
@@ -24,6 +26,9 @@ import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.Text
 import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.time.LocalDateTime
@@ -31,12 +36,12 @@ import java.time.format.DateTimeFormatter
 
 
 class RecognizeActivity : AppCompatActivity() {
-    private val MyDbManager = MyDbManager(this)
+    private val myDbManager = MyDbManager(this)
     private val recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
     private lateinit var binding: ActivityRecognizeBinding
     private lateinit var cardSaveDataImage: String
-    private var uriPhotoPicker: String? = null
-    private var uriPhotoPicker2: String? = null
+    private lateinit var uriPhotoPicker: String
+    private lateinit var byteArray: ByteArray
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,9 +50,14 @@ class RecognizeActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         /** принятие данных карточки и их прорисовка**/
+        transferredIntent()
+        recognizeButtonBinding()
+    }
+
+    private fun transferredIntent() {
         when (intent.action) {
             "Card" -> {
-                cardSaveDataImage = intent.getStringExtra("card_image").toString()
+                cardSaveDataImage = intent.getStringExtra("card_image")!!
                 val cardSaveData = intent.getStringExtra("card_text")
                 binding.apply {
                     imageView.setImageURI(cardSaveDataImage.toUri())
@@ -59,50 +69,36 @@ class RecognizeActivity : AppCompatActivity() {
                 launchCamera()
             }
             "Photo" -> {
-                uriPhotoPicker = intent.getStringExtra("UriPicker")
-                //перенести в в функцию
+                uriPhotoPicker = intent.getStringExtra("UriPicker").toString()
                 copyToDirectory()
-                binding.imageView.setImageURI(uriPhotoPicker?.toUri())
-                processImage(InputImage.fromFilePath(this,uriPhotoPicker!!.toUri()))
-                val fragment = DownloadFragment()
-                val handler = Handler()
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.recognize_layout,fragment)
-                    .addToBackStack(null)
-                    .commit()
-                handler.postDelayed({
-                    supportFragmentManager.popBackStack()
-                }, 2000)
-
+                processImage(InputImage.fromFilePath(this, uriPhotoPicker.toUri()))
+                mipmap(uriPhotoPicker.toUri())
+                animationDownload()
             }
             //QR
             //INK
         }
+    }
 
+    private fun recognizeButtonBinding(){
         binding.apply {
-
             SaveBtn.setOnClickListener {
                 when (intent.action) {
-                    "Photo" -> cardSaveDataImage = uriPhotoPicker2.toString()
+                    "Photo" -> cardSaveDataImage = uriPhotoPicker
                     "Camera" -> cardSaveDataImage = Uri.fromFile(photoFile).toString()
                 }
-                MyDbManager.openDb()
-                MyDbManager.insertToDb(
+                println(byteArray)
+                myDbManager.insertToDb(
                     textView.text.toString(),
-                    cardSaveDataImage, getCreatedTime()
-                )
-                MyDbManager.closeDb()
+                    cardSaveDataImage, getCreatedTime(),byteArray)
                 startActivity(
-                    Intent(
-                        this@RecognizeActivity,
+                    Intent(this@RecognizeActivity,
                         MainActivity::class.java
-                    ).setAction("your.custom.action")
-                )
+                    ).setAction("SaveCard"))
             }
-
             imageView.setOnClickListener {
                 when (intent.action) {
-                    "Photo" -> cardSaveDataImage = uriPhotoPicker.toString()
+                    "Photo" -> cardSaveDataImage = uriPhotoPicker
                     "Camera" -> cardSaveDataImage = Uri.fromFile(photoFile).toString()
                 }
                 val fragment = ImageFragment()
@@ -115,20 +111,18 @@ class RecognizeActivity : AppCompatActivity() {
                     .addToBackStack(null)
                     .commit()
             }
-
             arrowBack.setOnClickListener{
                 onBackPressedDispatcher.onBackPressed()
             }
-
             regDown.setOnClickListener{
                 val convert = ConvertTextToPdf(textView.text.toString(),pdfFile.path)
                 val outputFilePath = "${Environment.getExternalStoragePublicDirectory(
                     Environment.DIRECTORY_DOCUMENTS)}/${pdfFile.name}"
                 convert.savePdfToStorage(pdfFile.path,outputFilePath)
-                Toast.makeText(this@RecognizeActivity,"Созданный файл находиться в ${Environment.getExternalStoragePublicDirectory(
-                    Environment.DIRECTORY_DOCUMENTS)}",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@RecognizeActivity,"Созданный файл находиться в " +
+                        "${Environment.getExternalStoragePublicDirectory(
+                            Environment.DIRECTORY_DOCUMENTS)}",Toast.LENGTH_SHORT).show()
             }
-
             regCopy.setOnClickListener{
                 val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                 val clip: ClipData = ClipData.newPlainText(textView.text.toString(),textView.text.toString())
@@ -136,24 +130,21 @@ class RecognizeActivity : AppCompatActivity() {
                 Toast.makeText(this@RecognizeActivity,"Сopied",Toast.LENGTH_SHORT).show()
 
             }
-
             regShare.setOnClickListener{
                 val intent = Intent(Intent.ACTION_SEND)
                 intent.type = "text/plain"
                 intent.putExtra(Intent.EXTRA_TEXT,textView.text.toString())
                 startActivity(Intent.createChooser(intent, "Поделиться через:"))
             }
-
             textView.setOnClickListener {
                 textView.requestFocus()
             }
         }
-
     }
 
     private fun copyToDirectory() {
-        val inputStream = contentResolver.openInputStream(uriPhotoPicker!!.toUri())
-        val outputStream = FileOutputStream(photoFile_picker)
+        val inputStream = contentResolver.openInputStream(uriPhotoPicker.toUri())
+        val outputStream = FileOutputStream(photoFilePicker)
         val buffer = ByteArray(1024)
         var bytesRead: Int
         while (inputStream!!.read(buffer).also { bytesRead = it } != -1) {
@@ -161,7 +152,7 @@ class RecognizeActivity : AppCompatActivity() {
         }
         inputStream.close()
         outputStream.close()
-        uriPhotoPicker2 = Uri.fromFile(photoFile_picker).toString()
+        uriPhotoPicker = Uri.fromFile(photoFilePicker).toString()
     }
 
     private val photoFile: File by lazy {
@@ -171,13 +162,15 @@ class RecognizeActivity : AppCompatActivity() {
             getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)
         )
     }
-    private val photoFile_picker: File by lazy {
+
+    private val photoFilePicker: File by lazy {
         File.createTempFile(
-            "photo_picker",
+            "image_picker",
             ".jpg",
             getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)
         )
     }
+
     private val pdfFile: File by lazy {
         File.createTempFile(
             "pdf_",
@@ -189,30 +182,24 @@ class RecognizeActivity : AppCompatActivity() {
     private fun launchCamera() {
         try {
             val takeImageIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            val photoURI = FileProvider.getUriForFile(this, "com.example.wordwizard.fileprovider", photoFile)
+            val photoURI = FileProvider.getUriForFile(this,
+                "com.example.wordwizard.fileprovider", photoFile)
             takeImageIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
             takeImageLauncher.launch(takeImageIntent)
         } catch (e: Exception) {
-            println(e)
             /** Error Camera don't start **/
+            println(e)
         }
     }
-
-
     private val takeImageLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             result -> if ( result.resultCode == Activity.RESULT_OK ) {
-                val fragment = DownloadFragment()
-                val handler = Handler()
-                processImage(InputImage.fromFilePath(this, Uri.fromFile(photoFile)))
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.recognize_layout,fragment)
-                    .addToBackStack(null)
-                    .commit()
-                handler.postDelayed({
-                    supportFragmentManager.popBackStack()
-                }, 2000)
-                binding.imageView.setImageURI(Uri.fromFile(photoFile))
+
+                lifecycleScope.launch {
+                    processImage(InputImage.fromFilePath(applicationContext, Uri.fromFile(photoFile)))
+                }
+                mipmap(photoFile.toUri())
+                animationDownload()
             }
             else{
                 onBackPressedDispatcher.onBackPressed()
@@ -232,9 +219,29 @@ class RecognizeActivity : AppCompatActivity() {
                 binding.textView.text = R.string.recognize_error.toString()
             }
     }
+    private fun animationDownload() {
+        lifecycleScope.launch {
+            val fragment = DownloadFragment()
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.recognize_layout, fragment)
+                .addToBackStack(null)
+                .commit()
+            delay(2000)
+            supportFragmentManager.popBackStack()
+        }
+    }
     private fun getCreatedTime(): String {
         val currentDateTime = LocalDateTime.now()
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
         return currentDateTime.format(formatter)
+    }
+
+    private fun mipmap(photoUri: Uri){
+        val originalBitmap = MediaStore.Images.Media.getBitmap(contentResolver, photoUri)
+        val thumbnailBitmap = ThumbnailUtils.extractThumbnail(originalBitmap,65,65)
+        binding.imageView.setImageBitmap(thumbnailBitmap)
+        val stream = ByteArrayOutputStream()
+        thumbnailBitmap.compress(Bitmap.CompressFormat.WEBP_LOSSY,70,stream)
+        byteArray = stream.toByteArray()
     }
 }

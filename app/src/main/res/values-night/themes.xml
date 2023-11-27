@@ -5,8 +5,8 @@
         <item name="colorSurface">@color/regime_button</item>
         <item name="colorOnSurfaceVariant">@color/text</item>
         <item name="colorSurfaceContainer">@color/bottom_sheet</item>
-        <item name="android:windowBackground">@color/card_copy</item>
         <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@color/card_copy</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="colorOnPrimaryContainer">@color/icon_recognize</item>
         <item name="colorPrimaryContainer">@color/regime_button</item>
@@ -24,4 +24,7 @@
 
 
     <style name="Theme.WordWizard" parent="Base.Theme.WordWizard"/>
+    <style name="Theme.WordWizard.Launcher">
+        <item name="android:windowBackground">@drawable/activity_splash_screen</item>
+    </style>
 </resources>

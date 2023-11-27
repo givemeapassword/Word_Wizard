@@ -52,7 +52,7 @@
             android:layout_marginStart="110dp"
             android:layout_marginTop="30dp"
             android:layout_marginBottom="16dp"
-            android:fontFamily="@font/robotomono_bold"
+            android:fontFamily="@font/roboto_mono_bold"
             android:text="@string/recognized_text"
             android:textColor="@color/text"
             android:textSize="19sp"
@@ -80,14 +80,14 @@
             android:layout_marginBottom="10dp"
             android:cursorVisible="true"
             android:focusableInTouchMode="true"
-            android:fontFamily="@font/robotomono_italic"
+            android:fontFamily="@font/roboto_mono_italic"
             android:inputType="textMultiLine"
             android:maxLines="50"
             android:padding="8dp"
             android:text="@string/text_start_recognize"
             android:textColor="@color/text"
             android:textIsSelectable="true"
-            app:fontFamily="@font/robotomono_italic" />
+            app:fontFamily="@font/roboto_mono_italic" />
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="wrap_content"

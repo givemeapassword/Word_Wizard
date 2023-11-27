@@ -42,11 +42,11 @@
         android:layout_marginEnd="43dp"
         android:background="@drawable/dashed_underline_bottom" />
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/Digital_Ink"
+        android:id="@+id/QR_Code"
         android:layout_marginStart="43dp"
         android:layout_marginEnd="43dp"
         style="@style/BottomSheetDialog"
-        android:text="@string/digital_ink"/>
+        android:text="@string/qr_code"/>
     <View
         android:layout_width="match_parent"
         android:layout_height="3dp"
@@ -54,11 +54,11 @@
         android:layout_marginEnd="43dp"
         android:background="@drawable/dashed_underline_bottom" />
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/QR_Code"
+        android:id="@+id/Digital_Ink"
         android:layout_marginStart="43dp"
         android:layout_marginEnd="43dp"
         style="@style/BottomSheetDialog"
-        android:text="@string/qr_code"/>
+        android:text="@string/digital_ink"/>
     <View
         android:layout_width="match_parent"
         android:layout_height="3dp"

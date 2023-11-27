@@ -16,54 +16,58 @@ import com.example.wordwizard.db.MyDbManager
 
 class MainActivity : AppCompatActivity(),CardAdapter.Listener {
 
-    private val MyDbManager = MyDbManager(this)
+    private val myDbManager = MyDbManager(this)
     private lateinit var binding: ActivityMainBinding
     private val adapter = CardAdapter(this)
-    private val taskList = ArrayList<CardData>()
+    private val cardList = ArrayList<CardData>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.Theme_WordWizard)
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        mainButtonsBinding()
+        recyclerViewBinding()
+    }
 
+    private fun mainButtonsBinding(){
         binding.apply {
 
             /**кнопка меню**/
             menu.setOnClickListener {
                 drawerLayout.openDrawer(GravityCompat.START)
             }
-
             /**кнопка подписки**/
-            RV.setOnClickListener{
-                Toast.makeText(this@MainActivity,"В разработке", Toast.LENGTH_SHORT).show()
+            subscription.setOnClickListener{
+                toastInDeveloping()
             }
-
             /**кнопка навигацинного фрагмента**/
             navView.setNavigationItemSelectedListener {
                 when (it.itemId) {
-                    R.id.Licenses -> { Toast.makeText(this@MainActivity,"В разработке", Toast.LENGTH_SHORT).show() }
-                    R.id.Privacy -> {Toast.makeText(this@MainActivity,"В разработке",Toast.LENGTH_SHORT).show()}
-                    R.id.Share -> {Toast.makeText(this@MainActivity,"В разработке",Toast.LENGTH_SHORT).show()}
-                    R.id.Send -> {Toast.makeText(this@MainActivity,"В разработке",Toast.LENGTH_SHORT).show()}
-                    R.id.Rate_app -> {Toast.makeText(this@MainActivity,"В разработке",Toast.LENGTH_SHORT).show()}
-                    R.id.Terms -> {Toast.makeText(this@MainActivity,"В разработке",Toast.LENGTH_SHORT).show()}
-                    else -> {}
+                    R.id.Privacy -> {toastInDeveloping()}
+                    R.id.Licenses -> {toastInDeveloping()}
+                    R.id.Share -> {toastInDeveloping()}
+                    R.id.Send -> {toastInDeveloping()}
+                    R.id.Rate_app -> {toastInDeveloping()}
+                    R.id.Terms -> {toastInDeveloping()}
                 }
                 true
             }
-
             /**кнопка выбора режима**/
             imageButton.setOnClickListener {
                 BottomSheetDialog().show(supportFragmentManager,"BottomSheetDialog")
             }
         }
+    }
 
+    private fun recyclerViewBinding(){
         binding.apply {
             rcView.layoutManager = LinearLayoutManager(this@MainActivity)
-            getSwapMng().attachToRecyclerView(rcView)
+            rcView.setHasFixedSize(true)
             rcView.adapter = adapter
-            taskList.addAll(MyDbManager.getAllCards())
-            adapter.addCard(taskList)
+            getSwapMng().attachToRecyclerView(rcView)
+            cardList.addAll(myDbManager.getAllCards())
+            adapter.addCard(cardList)
         }
     }
 
@@ -71,14 +75,14 @@ class MainActivity : AppCompatActivity(),CardAdapter.Listener {
         startActivity(Intent(this@MainActivity,RecognizeActivity::class.java)
             .setAction("Card")
             .putExtra("card_image",cardData.imageId)
-            .putExtra("card_text",cardData.title))
+            .putExtra("card_text",cardData.title)
+        )
     }
 
     /** swipe element **/
     private fun getSwapMng(): ItemTouchHelper{
         return ItemTouchHelper(object:ItemTouchHelper
             .SimpleCallback(0,ItemTouchHelper.RIGHT){
-
             override fun onMove(
                 recyclerView: RecyclerView,
                 viewHolder: RecyclerView.ViewHolder,
@@ -86,20 +90,14 @@ class MainActivity : AppCompatActivity(),CardAdapter.Listener {
             ): Boolean {
                 return false
             }
-
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                adapter.removeCard(viewHolder.adapterPosition,MyDbManager)
+                adapter.removeCard(viewHolder.adapterPosition,myDbManager)
             }
         })
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        MyDbManager.closeDb()
-    }
-
-
-
+    private fun toastInDeveloping() = Toast
+        .makeText(this@MainActivity,"In developing", Toast.LENGTH_SHORT).show()
 }
 
 

@@ -12,7 +12,7 @@ import com.example.wordwizard.databinding.RecognizeImageBinding
 class ImageFragment : Fragment() {
 
     private lateinit var binding: RecognizeImageBinding
-    private lateinit var image:String
+    private lateinit var image: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

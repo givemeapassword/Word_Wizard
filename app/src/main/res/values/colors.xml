@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <color name="plate_color">#EFDDB2</color>
     <color name="card">#607D8B</color>
     <color name="card_copy">#CFD8DC</color>
@@ -14,7 +13,4 @@
     <color name="recognize_back">#DCDCCF</color>
     <color name="icon_recognize">#463F3A</color>
     <color name="drag_handler">#79747E</color>
-
-
-
 </resources>

@@ -1,4 +1,5 @@
 package com.example.wordwizard.common
+
 import com.itextpdf.kernel.pdf.PdfDocument
 import com.itextpdf.kernel.pdf.PdfWriter
 import com.itextpdf.layout.Document
@@ -6,6 +7,7 @@ import com.itextpdf.layout.element.Paragraph
 import com.itextpdf.layout.property.TextAlignment
 import java.io.File
 import java.io.FileOutputStream
+
 
 class ConvertTextToPdf(val text: String, fileName: String) {
     private val pdfWriter = PdfWriter(FileOutputStream(fileName))

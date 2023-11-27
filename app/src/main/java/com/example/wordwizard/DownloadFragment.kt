@@ -16,7 +16,8 @@ class DownloadFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DownloadScreenBinding.inflate(layoutInflater,container,false)
+        binding = DownloadScreenBinding.inflate(layoutInflater,
+            container,false)
         return binding.root
     }
 
