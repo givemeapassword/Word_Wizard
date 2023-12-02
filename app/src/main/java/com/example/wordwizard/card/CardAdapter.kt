@@ -75,7 +75,7 @@ class CardAdapter(private val listener: Listener): RecyclerView.Adapter<CardAdap
     }
 
     fun removeCard(position: Int,dbManager: MyDbManager){
-        dbManager.deleteFromDb(cardList[position].id)
+        dbManager.deleteFromDb(cardList[position].id, cardList[position].imageId)
         cardList.removeAt(position)
         notifyItemRangeChanged(0,cardList.size)
         notifyItemRemoved(position)

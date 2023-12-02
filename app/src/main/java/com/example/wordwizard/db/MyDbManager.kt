@@ -1,11 +1,15 @@
 package com.example.wordwizard.db
 
+import android.content.ContentResolver
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
+import android.net.Uri
 import android.provider.BaseColumns
+import androidx.core.net.toUri
 import com.example.wordwizard.card.CardData
+import java.io.File
 
 class MyDbManager(context: Context) {
     private val myDbHelper = MyDbHelper(context)
@@ -24,8 +28,9 @@ class MyDbManager(context: Context) {
         closeDb()
     }
 
-    fun deleteFromDb(id: String){
+    fun deleteFromDb(id: String, image: String){
         openDb()
+        deleteImageFromScopeStorage(image)
         db.delete(MyDbNameClass.TABLE_NAME,"_id=${id}",null)
         closeDb()
     }
@@ -53,4 +58,9 @@ class MyDbManager(context: Context) {
         return cards
     }
     private fun closeDb():Unit = myDbHelper.close()
+
+    private fun deleteImageFromScopeStorage(imageUri: String) {
+        val imageFile = File(imageUri.toUri().path!!)
+        imageFile.canonicalFile.delete()
+    }
 }
