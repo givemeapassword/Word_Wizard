@@ -24,8 +24,8 @@ class CardAdapter(private val listener: Listener): RecyclerView.Adapter<CardAdap
             binding.apply {
 
                 /**инициализация всех данных карточки**/
-                decodeByteArrayToBitmap(cardData.imageMipmapId)
-                imageCard.setImageBitmap(decodeByteArrayToBitmap(cardData.imageMipmapId))
+                decodeByteArrayToBitmap(cardData.imageMipmap)
+                imageCard.setImageBitmap(decodeByteArrayToBitmap(cardData.imageMipmap))
                 textCard.text = cardData.title
                 timeCard.text = cardData.date
 
@@ -75,7 +75,7 @@ class CardAdapter(private val listener: Listener): RecyclerView.Adapter<CardAdap
     }
 
     fun removeCard(position: Int,dbManager: MyDbManager){
-        dbManager.deleteFromDb(cardList[position].id, cardList[position].imageId)
+        dbManager.deleteFromDb(cardList[position].id, cardList[position].imageUri)
         cardList.removeAt(position)
         notifyItemRangeChanged(0,cardList.size)
         notifyItemRemoved(position)

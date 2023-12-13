@@ -25,7 +25,7 @@
         android:id="@+id/materialTextView2"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="10dp"
         android:layout_marginStart="140dp"
         android:fontFamily="@font/serif_display_italic"
         android:text="@string/app_name"
@@ -40,7 +40,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginHorizontal="13dp"
-        android:layout_marginVertical="80dp"
+        android:layout_marginVertical="70dp"
         android:background="@drawable/text_recognize_shape"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -103,7 +103,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:cardCornerRadius="10dp"
-            android:layout_margin="14dp">
+            android:layout_margin="14dp"
+            app:cardElevation="5dp">
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="70dp"
@@ -163,6 +164,7 @@
         android:insetBottom="0dp"
         app:cornerRadius="10dp"
         app:icon="@drawable/plus"
+        app:iconTint="@color/recognize_button"
         app:iconGravity="textStart"
         app:iconPadding="0dp"
         app:iconSize="30dp"

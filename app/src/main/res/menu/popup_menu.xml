@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/pdf"
+        android:title="@string/popupmenu_pdf"/>
+    <item
+        android:id="@+id/txt"
+        android:title="@string/popupmenu_txt"/>
+    <item
+        android:id="@+id/png"
+        android:title="@string/popupmenu_png"/>
+</menu>

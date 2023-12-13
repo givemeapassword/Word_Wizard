@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/drawer_layout"
-    tools:openDrawer="start"
+    tools:openDrawer=""
     tools:context=".MainActivity">
 
 
@@ -65,6 +65,7 @@
         <com.google.android.material.button.MaterialButton
             app:cornerRadius="10dp"
             android:id="@+id/imageButton"
+            android:backgroundTint="@color/main_button"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginEnd="22dp"

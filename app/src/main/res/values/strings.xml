@@ -33,4 +33,8 @@
     <string name="download_description">Download Button</string>
     <string name="detect_button_qr">detect</string>
     <string name="textView_qr">Here will be the text</string>
+    <string name="popupmenu_pdf">PDF</string>
+    <string name="popupmenu_txt">TXT</string>
+    <string name="popupmenu_png">PNG</string>
+    <string name="nav_settings">Settings</string>
 </resources>

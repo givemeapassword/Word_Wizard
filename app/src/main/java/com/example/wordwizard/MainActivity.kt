@@ -74,7 +74,7 @@ class MainActivity : AppCompatActivity(),CardAdapter.Listener {
     override fun onClick(cardData: CardData) {
         startActivity(Intent(this@MainActivity,RecognizeActivity::class.java)
             .setAction("Card")
-            .putExtra("card_image",cardData.imageId)
+            .putExtra("card_image",cardData.imageUri)
             .putExtra("card_text",cardData.title)
         )
     }

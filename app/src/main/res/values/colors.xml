@@ -6,11 +6,13 @@
     <color name="card_share">#154A5C</color>
     <color name="text">#191D23</color>
     <color name="main_back_button">#463E2B</color>
+    <color name="recognize_button">#3A566D</color>
     <color name="header_back_hover">#cd9c23</color>
-    <color name="regime_button">#9E9E9E</color>
+    <color name="regime_button">#91A9C1</color>
     <color name="header_back">#E1AB26</color>
     <color name="bottom_sheet">#DEDCDC</color>
-    <color name="recognize_back">#DCDCCF</color>
+    <color name="recognize_back">#CFD8DC</color>
     <color name="icon_recognize">#463F3A</color>
     <color name="drag_handler">#79747E</color>
+    <color name="main_button">#9E9E9E</color>
 </resources>

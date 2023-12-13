@@ -54,7 +54,6 @@ class QrCodeActivity : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     private fun processImage(){
-        println(imageBitmap)
         val image = InputImage.fromBitmap(imageBitmap!!, 0)
         val scanner = BarcodeScanning.getClient(options)
         scanner.process(image)
@@ -65,14 +64,12 @@ class QrCodeActivity : AppCompatActivity() {
                 for (barcode in barcodes) {
                     when (barcode.valueType) {
                         Barcode.TYPE_WIFI -> {
-                            println("я тут1")
                             val ssid = barcode.wifi!!.ssid
                             val password = barcode.wifi!!.password
                             val type = barcode.wifi!!.encryptionType
                             binding.textView.text = "$ssid \n $password \n $type"
                         }
                         Barcode.TYPE_URL -> {
-                            println("я тут2")
                             val title = barcode.url!!.title
                             val url = barcode.url!!.url
                             println(title)
@@ -80,7 +77,6 @@ class QrCodeActivity : AppCompatActivity() {
                             binding.textView.text = "$url"
                         }
                         Barcode.TYPE_TEXT -> {
-                            println("я тут")
                             binding.textView.text = barcode.rawValue.toString()
                         }
                     }

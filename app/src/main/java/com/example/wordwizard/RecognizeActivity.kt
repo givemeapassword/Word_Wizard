@@ -15,10 +15,13 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.PopupMenu
 import androidx.core.content.FileProvider
 import androidx.core.net.toUri
 import androidx.lifecycle.lifecycleScope
 import com.example.wordwizard.common.ConvertTextToPdf
+import com.example.wordwizard.common.ConvertTextToPng
+import com.example.wordwizard.common.ConvertTextToTxt
 import com.example.wordwizard.databinding.ActivityRecognizeBinding
 import com.example.wordwizard.db.MyDbManager
 import com.google.android.gms.tasks.Task
@@ -114,14 +117,44 @@ class RecognizeActivity : AppCompatActivity() {
             arrowBack.setOnClickListener{
                 onBackPressedDispatcher.onBackPressed()
             }
-            regDown.setOnClickListener{
-                val convert = ConvertTextToPdf(textView.text.toString(),pdfFile.path)
-                val outputFilePath = "${Environment.getExternalStoragePublicDirectory(
-                    Environment.DIRECTORY_DOCUMENTS)}/${pdfFile.name}"
-                convert.savePdfToStorage(pdfFile.path,outputFilePath)
-                Toast.makeText(this@RecognizeActivity,"Созданный файл находиться в " +
-                        "${Environment.getExternalStoragePublicDirectory(
-                            Environment.DIRECTORY_DOCUMENTS)}",Toast.LENGTH_SHORT).show()
+            regDown.setOnClickListener {
+                val popupMenu = PopupMenu(this@RecognizeActivity, binding.regDown)
+                popupMenu.menuInflater.inflate(R.menu.popup_menu, popupMenu.menu)
+
+                popupMenu.setOnMenuItemClickListener { menuItem ->
+                    when (menuItem.itemId) {
+                        R.id.pdf -> {
+                            val convert = ConvertTextToPdf(textView.text.toString(),pdfFile.path)
+                            val outputFilePath = "${Environment.getExternalStoragePublicDirectory(
+                                Environment.DIRECTORY_DOCUMENTS)}/${pdfFile.name}"
+                            convert.savePdfToStorage(pdfFile.path,outputFilePath)
+                            Toast.makeText(this@RecognizeActivity,"Созданный файл находиться в " +
+                                    "${Environment.getExternalStoragePublicDirectory(
+                                        Environment.DIRECTORY_DOCUMENTS)}",Toast.LENGTH_SHORT).show()
+                            true
+                        }
+                        R.id.png -> {
+                            val convert = ConvertTextToPng(textView.text.toString(),pngFile.path)
+                            convert.translateTextToPngFile()
+                            Toast.makeText(this@RecognizeActivity,"Созданный файл находиться в " +
+                                    "${Environment.getExternalStoragePublicDirectory(
+                                        Environment.DIRECTORY_DOCUMENTS)}",Toast.LENGTH_SHORT).show()
+                            true
+                        }
+                        R.id.txt -> {
+                            val convert = ConvertTextToTxt(this@RecognizeActivity,
+                                textView.text.toString(),txtFile.path)
+                            Toast.makeText(this@RecognizeActivity,"Созданный файл находиться в " +
+                                    "${Environment.getExternalStoragePublicDirectory(
+                                        Environment.DIRECTORY_DOCUMENTS)}",Toast.LENGTH_SHORT).show()
+                            convert.saveTextToFile()
+                            true
+                        }
+                        // Добавьте дополнительные пункты меню, если необходимо
+                        else -> false
+                    }
+                }
+                popupMenu.show()
             }
             regCopy.setOnClickListener{
                 val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
@@ -175,6 +208,20 @@ class RecognizeActivity : AppCompatActivity() {
         File.createTempFile(
             "pdf_",
             ".pdf",
+            getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)
+        )
+    }
+    private val txtFile: File by lazy {
+        File.createTempFile(
+            "txt_",
+            ".txt",
+            getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)
+        )
+    }
+    private val pngFile: File by lazy {
+        File.createTempFile(
+            "png_",
+            ".png",
             getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)
         )
     }
